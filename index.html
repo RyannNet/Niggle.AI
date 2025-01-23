@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login com Discord</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #e5e5e5;
+      background-color: #101214;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-container {
+      background-color: #181a1f;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      width: 400px;
+    }
+
+    h2 {
+      color: #61dafb;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    .login-btn {
+      background-color: #7289da;
+      color: white;
+      padding: 12px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+
+    .login-btn:hover {
+      background-color: #5b6eaa;
+    }
+
+    .login-btn:active {
+      background-color: #4a5b89;
+    }
+
+    footer {
+      color: #616161;
+      font-size: 12px;
+      margin-top: 20px;
+    }
+
+    footer a {
+      color: #61dafb;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login com Discord</h2>
+    <!-- Substitua o LINK_AQUI pelo seu link de autorização -->
+    <a href="https://discord.com/oauth2/authorize?client_id=yz9JIGIFNN_kCz5kc2E4e2E_puZF6Id0&redirect_uri=SEU_REDIRECT_URL&response_type=code&scope=identify%20email">
+      <button class="login-btn">Entrar com Discord</button>
+    </a>
+    <footer>
+      <p>Não tem conta? <a href="#">Criar Conta</a></p>
+    </footer>
+  </div>
+</body>
+</html>

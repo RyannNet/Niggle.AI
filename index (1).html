@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="haze.css">
+  <title>Haze Squad</title>
+  <script src="script.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <img src="/795 Sem Título_20250122122448.png" height="30px" width="60px" alt="Logo">
+    <nav><a href="#inicio">Início</a></nav>
+    <nav><a href="#jogos">Jogos</a></nav>
+    <nav><a href="#contas">Contas</a></nav>
+    <nav><a href="#novidades">Novidades</a></nav>
+  </header>
+
+  <h1 class="haze">HAZE SQUAD</h1>
+
+  <div class="paragrafo1">
+    <p>Seja muito bem-vindo (a) ao Haze Squad, o jogo de Battle Royale para celular, com diversas opções de armas para você se entreter. Esse jogo foi pensado para divertir você, jogador!</p>
+  </div>
+
+<div class="btn-container">
+  <button id="preRegistro">PRÉ-REGISTRO</button>
+</div>
+
+  <div class="plataformas">
+    <p>Plataformas:</p>
+    <img src="/163-1632345_download-the-domus-app-today-android-icon-white.png" height="70px" width="70" alt="Ícone Android">
+  </div>
+<div class="container"><h4>MULTI-PLAYER</h4><hr><p>Jogue com pessoas que você não conhece, ou até seus amigos!</p></div></div>
+<div class="container"><h4>BATTLE ROYALE</h4><hr><p>Jogue no modo battle royale e ganhe mais pontos e compre seus baús para conseguir mais armas novinha em folha!.</p></div></div>
+<div class="container"><h4>CONVERSE</h4><hr><p>Isso mesmo, converse suas estratégias com seus amigos por bate-papo oiu até chat de voz!</p></div></div>
+<div class="container"><h4>MATE-OS</h4><hr><p>Jogue com pessoas que você não conhece, ou até seus amigos!</p></div></div>
+<div class="container"><h4>DOBRE</h4><hr><p>Dobre seus ganhos por cada kills!</p></div></div>
+  <div class="apresentacao">
+    <h1 class="h1black">Pre-Registro</h1>
+    <p>E-mail</p><div class="input-container">
+  <input type="text" placeholder="Escreva seu email">
+</div><p>Senha</p><div class="input-container">
+  <input type="text" placeholder="Escreva sua senha">
+</div>
+  </div>
+
+  <script>
+    // Adiciona interatividade ao botão de pré-registro
+    const preRegistroButton = document.getElementById('preRegistro');
+
+    preRegistroButton.addEventListener('click', function() {
+      const email = prompt('Digite seu e-mail para fazer o pré-registro:');
+      if (email) {
+        alert(`Obrigado pelo seu pré-registro! Você será notificado no lançamento. E-mail: ${email}`);
+        console.log(`Pré-registro realizado com o e-mail: ${email}`);
+      } else {
+        alert('O pré-registro foi cancelado.');
+      }
+    });
+
+    // Faz navegação suave ao clicar nos links do menu
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

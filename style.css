@@ -4,27 +4,90 @@
   box-sizing: border-box;
 }
 
+/* Estilo geral para o Body e Header */
 body {
-  font-family: Host Grotesk;
-  background: linear-gradient(90deg, #FFF9FF, #F5F8FF, #E0E8FF, #FEFFFB);
-  color: #000;
+  font-family: 'Lexend GiGa', sans-serif;
+  background: linear-gradient(195deg, #EFFFED, #E0DCFF, #E6EEFF, #FFEFFD);
+  color: #000000;
   display: flex;
   flex-direction: column;
+  font-size: 7px;
   height: 100vh;
 }
 
 header {
-  background: linear-gradient(195deg, #D8E4FF1A, #EEFFE217, #FDDEFF17, #FFEDED, #FFD5D51C);
-  border-bottom: 1px solid #E2E2E2;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.34);
+  background: linear-gradient(195deg, #EFFFED, #E0DCFF);
+  border-bottom: 1px solid #00A8FF;
   padding: 10px;
+  box-shadow: 0px 0px 30px #138CFF66;
   text-align: center;
+}
+
+/* Estilo do Modal de Configurações */
+.overlay {
+  display: none; /* Esconde o modal por padrão */
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  color: #000;
+}
+
+.overlay-content h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.overlay-content input,
+.overlay-content select {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.overlay-content button {
+  padding: 10px 20px;
+  background-color: #024CFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.overlay-content button:hover {
+  background-color: #0035B0;
+}
+
+/* Fechar Botão */
+#closeConfigModal {
+  margin-top: 20px;
+  background-color: #FF4D4D;
+}
+
+#closeConfigModal:hover {
+  background-color: #D12C2C;
 }
 
 header img {
   width: 150px;
   height: 50px;
-  margin-left: -270px;
+  display:flex;
 }
 
 .chat-container {
@@ -41,20 +104,28 @@ header img {
   padding: 10px;
   border-radius: 10px;
   font-size: 5px;
-  max-height: 100%;
-  line-height: 1.0;
   font-family: Lexend Giga, sans serif;
   opacity: 0;
   transition: opacity 1s ease-in-out;
-}
-.message received{
-  margin: 10px;
-}
+  word-break: 1px;
+line-height: 20px;
 
+}
+.message received {
+  white-space: pre-wrap; /* Preserva espaços e quebras de linha */
+  word-break: break-word; /* Quebra palavras grandes */
+  line-height: 1.5; /* Espaçamento entre linhas */
+  padding: 10px;
+  background-color: #e0e8ff; /* Fundo da mensagem recebida */
+  color: #000; /* Cor do texto */
+  border-radius: 10px; /* Arredondamento dos cantos */
+  max-width: 90%; /* Limita a largura máxima */
+  margin: 10px 0; /* Espaçamento entre mensagens */
+}
 .message.received {
   align-self: flex-start;
-  background: #E0E8FF;
-  color: #000;
+  background: #000000;
+  color: #FFECEC;
 }
 
 .message.sent {
@@ -67,10 +138,40 @@ header img {
   opacity: 1;
 }
 
+/* Estilo do Footer */
 footer {
-  background: #FFF;
+  background: linear-gradient(195deg, #EAF0FF, #DDE6FF, #F1EDFF);
   padding: 10px;
-  border-top: 1px solid #E2E2E2;
+  border-top: 1px solid #AFC5FF;
+  position: relative; /* Necessário para o posicionamento do "digitando" */
+}
+
+.typing-indicator {
+  position: absolute;
+  bottom: 5px; /* Fica perto do rodapé */
+  left: 10px;
+  font-size: 14px;
+  color: #888;
+  display: none; /* Inicialmente escondido */
+  transition: bottom 0.3s ease, opacity 0.3s ease; /* Transição suave para mover e desaparecer */
+}
+
+/* A animação de "digitando" */
+@keyframes typing {
+  0% { content: "•••"; }
+  33% { content: "°••"; }
+  66% { content: "•°•"; }
+  100% { content: "•••"; }
+}
+
+.typing-indicator.show {
+  display: block;
+  animation: typing 1s infinite;
+}
+
+.chat-input input:focus {
+  border-color: #2351CB;
+  box-shadow: 0 0 15px #4789F34A;
 }
 
 .chat-input {
@@ -119,7 +220,7 @@ footer {
   font-weight: bold;
   letter-spacing: 2px;
   color: #555555;
-  position: center;
+  position: space-between
 }
 
 @keyframes typing {
@@ -127,26 +228,31 @@ footer {
     content: "•••";
     transition: 0.5s;
     color: #B6B6B6;
+    font-size: 10px;
   }
   25% {
     content: "°••";
     transition: 0.5s;
     color: #535353;
+    font-size: 20px;
   }
   50% {
     content: "•°•";
     transition: 0.5s;
     color: #A2A2A2;
+    font-size: 25px;
   }
   75% {
     content: "••°";
     transition: 0.5s;
     color: #A19C9C;
+    font-size: 20px;
   }
   100% {
     content: "•••";
     transition: 0.5s;
     color: #DFDFDF;
+    font-size: 10px;
   }
 }
 
@@ -172,17 +278,18 @@ footer {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com transparência */
+  background: linear-gradient( 195deg, #00092CB8, #0D170DB8, #21192FB8);
+  color: #FFFFFF;
   backdrop-filter: blur(5px); /* Desfoque no fundo */
 }
 
 /* Conteúdo do modal */
 .modal-content {
-  background-color: rgba(255, 255, 255, 0.72);
-  outline: 1px solid rgba(0, 0, 0, 0.28);
+  background-color: rgba(1, 4, 25, 0.77);
   margin: 10% auto;
   padding: 70px;
-  border-radius: 8px;
+  border-radius: 20px;
+  border: 1px solid #41446D;
   width: 90%;
   height:50%;
   animation: fadeIn 0.5s ease-in-out;
@@ -199,7 +306,7 @@ footer {
 
 /* Estilos do Header */
 header nav a {
-  color: #777777;
+  color: #959595;
   font-weight: bold;
   text-decoration: none;
   font-family: 'Host Grotesk', sans-serif;
@@ -208,7 +315,7 @@ header nav a {
 }
 
 header nav a:hover {
-  color: #FF0084;
+  color: #0065FF;
   transition: color 0.5s ease;
   -webkit-tap-highlight-color: transparent;
 }
@@ -218,73 +325,6 @@ header nav a:hover {
   margin-left: -60px;
   margin-top: 90px;
   color: #FF0000;
-}
-
-  /* Estilos gerais */
-  body {
-    background-color: white; /* Fundo claro por padrão */
-    color: black; /* Texto escuro por padrão */
-    transition: all 0.3s ease; /* Transição suave para o modo escuro */
-  }
-
-  input, textarea, select, button,{
-    background-color: white; /* Campos de entrada com fundo claro */
-    color: black; /* Texto escuro nos campos de entrada */
-    border: 1px solid #ccc; /* Bordas claras */
-    transition: all 0.3s ease; /* Transição suave para o modo escuro */
-  }
-
-  a {
-    color: #007bff; /* Cor do link padrão */
-    transition: color 0.3s ease; /* Transição suave para a cor do link */
-  }
-
-  /* Estilo do modo escuro */
-  .dark-mode {
-    background-color: #121212; /* Fundo escuro para o site */
-    color: white; /* Texto branco */
-  }
-  .dark-mode input,
-  .dark-mode textarea,
-  .dark-mode select,
-  .dark-mode button {
-    background-color: #151515; /* Fundo escuro para campos de entrada */
-    color: white; /* Texto branco nos campos de entrada */
-    border: 1px solid #444; /* Bordas mais suaves */
-  }
-
-  .dark-mode a {
-    color: #bb86fc; /* Cor de links no modo escuro */
-  }
-
-  /* Outros elementos específicos do modo escuro */
-  .dark-mode .message {
-    background-color: #333; /* Fundo escuro para mensagens */
-    color: white; /* Texto branco nas mensagens */
-  }
-
-  .dark-mode .loading-animation {
-    border-color: #bb86fc; /* Ajuste a animação de carregamento */
-  }
-/* Estilos do overlay */
-.overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
-
-.overlay-content {
-  background: #333;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
 }
 
 #peopleList {
@@ -307,5 +347,36 @@ button {
 }
 
 button:hover {
-  background: #666;
+  background: #1244FF;
 }
+
+.container {
+  width: 100%; /* Para garantir que ocupe toda a largura disponível */
+  max-width: 1200px; /* Limitar o tamanho máximo em telas muito grandes */
+  padding: 20px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* Estilo para o modo escuro */
+body.dark-mode {
+  background: #0E0E0E;
+  color: #FFF;
+}
+
+header.dark-mode {
+  background: #1E1E1E;
+  border-bottom: 1px solid #333;
+}
+
+/* Outras áreas do site */
+button.dark-mode {
+  background: #333;
+  color: #FFF;
+  }
+  

@@ -37,17 +37,18 @@ header img {
 }
 
 .message {
-  width:230px;
+  width: 230px;
   padding: 10px;
   border-radius: 10px;
-  font-size: 14px;
-  line-height: 1.5;
-  overflow: hidden;
+  font-size: px;
+  max-height: 100%;
+  line-height: 1.0;
   font-family: Lexend Giga, sans serif;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: pre-wrap; /* Mantém quebras de linha */
-
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.message received{
+  margin: 10px;
 }
 
 .message.received {
@@ -60,6 +61,10 @@ header img {
   align-self: flex-end;
   background: #004AFF;
   color: #FFF;
+}
+
+.message.show {
+  opacity: 1;
 }
 
 footer {
@@ -90,7 +95,7 @@ footer {
 
 .chat-input button {
   width: 50px;
-  height:50px;
+  height: 50px;
   border: none;
   background: #024CFF;
   color: #FFF;
@@ -103,7 +108,7 @@ footer {
   background: #0035B0;
   border: 2px solid #004DFF;
   transition: 0.5s;
-  -webkit-tap-highlight-color: transparent
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Animação de bolinhas */
@@ -113,34 +118,34 @@ footer {
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 2px;
-  color: #555;
+  color: #555555;
   position: center;
 }
 
 @keyframes typing {
   0% {
     content: "•••";
-    transition:0.5s;
-    color:#B6B6B6;
+    transition: 0.5s;
+    color: #B6B6B6;
   }
   25% {
     content: "°••";
-    transition:0.5s;
-    color:#535353;
+    transition: 0.5s;
+    color: #535353;
   }
   50% {
     content: "•°•";
-    transition:0.5s;
+    transition: 0.5s;
     color: #A2A2A2;
   }
   75% {
     content: "••°";
-    transition:0.5s;
-    color:#A19C9C;
+    transition: 0.5s;
+    color: #A19C9C;
   }
   100% {
     content: "•••";
-    transition:0.5s;
+    transition: 0.5s;
     color: #DFDFDF;
   }
 }
@@ -157,32 +162,150 @@ footer {
   margin-top: 20px;
   color: #555555;
 }
-/* Animação para o fade de mensagens */
-.message {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
+
+/* Modal */
+.modal {
+  display: none; /* Modal escondido por padrão */
+  position: fixed;
+  z-index: 1000; /* Certifique-se de que o modal está acima de outros elementos */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com transparência */
+  backdrop-filter: blur(5px); /* Desfoque no fundo */
 }
 
-.message.show {
-  opacity: 1;
+/* Conteúdo do modal */
+.modal-content {
+  background-color: rgba(255, 255, 255, 0.72);
+  outline: 1px solid rgba(0, 0, 0, 0.28);
+  margin: 10% auto;
+  padding: 70px;
+  border-radius: 8px;
+  width: 90%;
+  height:50%;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-
-
-/* Estilos padrões */
-body {
-  font-family: 'Arial', sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-/* Modo claro */
-.light-mode {
-  background-color: #fff;
-  color: #000;
+/* Estilos do Header */
+header nav a {
+  color: #777777;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: 'Host Grotesk', sans-serif;
+  font-size: 12px;
+  gap: 15px;
 }
 
-/* Modo escuro */
-.dark-mode {
-  background-color: #121212;
-  color: #fff;
+header nav a:hover {
+  color: #FF0084;
+  transition: color 0.5s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.close{
+  font-size: 60px;
+  position: left;
+  margin-left: -60px;
+  margin-top: 90px;
+  color: #FF0000;
+}
+
+  /* Estilos gerais */
+  body {
+    background-color: white; /* Fundo claro por padrão */
+    color: black; /* Texto escuro por padrão */
+    transition: all 0.3s ease; /* Transição suave para o modo escuro */
+  }
+
+  input, textarea, select, button,{
+    background-color: white; /* Campos de entrada com fundo claro */
+    color: black; /* Texto escuro nos campos de entrada */
+    border: 1px solid #ccc; /* Bordas claras */
+    transition: all 0.3s ease; /* Transição suave para o modo escuro */
+  }
+
+  a {
+    color: #007bff; /* Cor do link padrão */
+    transition: color 0.3s ease; /* Transição suave para a cor do link */
+  }
+
+  /* Estilo do modo escuro */
+  .dark-mode {
+    background-color: #121212; /* Fundo escuro para o site */
+    color: white; /* Texto branco */
+  }
+  .dark-mode input,
+  .dark-mode textarea,
+  .dark-mode select,
+  .dark-mode button {
+    background-color: #151515; /* Fundo escuro para campos de entrada */
+    color: white; /* Texto branco nos campos de entrada */
+    border: 1px solid #444; /* Bordas mais suaves */
+  }
+
+  .dark-mode a {
+    color: #bb86fc; /* Cor de links no modo escuro */
+  }
+
+  /* Outros elementos específicos do modo escuro */
+  .dark-mode .message {
+    background-color: #333; /* Fundo escuro para mensagens */
+    color: white; /* Texto branco nas mensagens */
+  }
+
+  .dark-mode .loading-animation {
+    border-color: #bb86fc; /* Ajuste a animação de carregamento */
+  }
+/* Estilos do overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.overlay-content {
+  background: #333;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#peopleList {
+  list-style: none;
+  padding: 0;
+}
+
+#peopleList li {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+button {
+  background: #444;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #666;
 }

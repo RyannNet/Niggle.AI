@@ -1,4 +1,92 @@
-window.onload = function () {
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Chat Interface</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Text:ital@0;1&family=Flow+Circular&family=Geist+Mono:wght@100..900&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Jaro:opsz@6..72&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lexend+Giga:wght@100..900&family=Manrope:wght@200..800&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Smooch+Sans:wght@900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Ysabeau+SC:wght@1..1000&display=swap" rel="stylesheet">
+<body>
+  <!-- Seu conteúdo HTML aqui -->
+
+
+</body>
+</head>
+
+<body>
+<header>
+  <img src="/Niggle.AI/Imagens/1000091891-removebg-preview.png" alt="Logo">
+  <nav>
+    <a href="#" id="baixarLink">Abaixar .ngl</a> |
+    <a href="#" id="importarLink">Importar .ngl</a> |
+    <a href="#">Novidades</a> |
+    <a href="#" id="openConfigModal">Config.</a>
+   <!-- Link para abrir o overlay -->
+<nav><a href="#novidades" id="openOverlay">Conversar com pessoas reais</a></nav>
+
+<!-- Overlay -->
+<div id="overlay" class="overlay">
+  <div class="overlay-content">
+    <h2>Pessoas no site:</h2>
+    <ul id="peopleList">
+      <!-- Lista de pessoas será gerada aqui -->
+    </ul>
+    <button id="closeOverlay">Fechar</button>
+  </div>
+</div>
+</header>
+
+<!-- Modal de Configuração -->
+<div id="configModal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal" class="close">&times;</span>
+    <h2>Configurações</h2>
+    <div class="config-options">
+      <button class="config-btn" id="installNGL">Instalar .ngl</button>
+      <button class="config-btn" id="formatOfficial">Formato oficial</button>
+      <button class="config-btn" id="openSavedChats">Abrir Chats Salvos</button>
+      <button class="config-btn" id="baixarNGL">Abaixar</button>
+      <button class="config-btn" id="importNGL">Importar .ngl</button>
+    </div>
+  </div>
+</div>
+<!-- Modal de Novidades -->
+<div id="newsModal" class="modal">
+  <div class="modal-content">
+    <span id="closeNewsModal" class="close">&times;</span>
+    <h1>Novidades</h1>
+    <ul id="newsList">
+      <li>Agora você pode dar continuidades ao seu chat, apenas imporfando seu chat ngl.</li>
+      <li>Melhoria na adaptação do design!</li>
+      <li>Correções de bugs no sistema de configuração.</li>
+      <li>Compatibilidade ampliada para dispositivos móveis</li>
+    </ul>
+  </div>
+</div>
+</body>
+<main class="chat-container">
+  
+  <div class="message received">Olá, caro usuário✌️, seja muito bem-vindo(a) ao niggle.AI, sua IA de transcrição de texto, posso te ajudar com códigos👨‍💻, posso também resenhar com você, hehehehe.</div>
+  <div class="message sent">Quero um sistema de input bem bonito!</div>
+  <div class="loading-animation"></div>
+  <div class="empty-text" style="display: none;">Nossa, mas que vazio</div>
+</main>
+<footer>
+  <form class="chat-input" id="chatForm">
+    
+    <input type="text" id="userMessage" placeholder="Digite sua mensagem..." maxlength="250" required>
+    <button type="submit"><img src="/send_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" height="20px" width="20px"></button>
+    
+  </form>
+</footer>
+  </footer>
+</body>
+
+</html>
+<script>window.onload = function () {
     const messages = document.querySelectorAll(".message");
     const loadingAnimation = document.querySelector(".loading-animation");
     const emptyText = document.querySelector(".empty-text");
@@ -120,7 +208,7 @@ window.onload = function() {
         message: message,
         model: 'command-r-08-2024',
         preamble: `Modo Normal (Até usar o código):
-eu fui criado por Matheus Nunes Epifânio 
+
 Personalidade: Bem respeitável e educado, nada de zoeira. Responde de forma simples e sem exagero. Usa linguagem clara e sem gírias pesadas. Quando alguém pede algo, ele é mais cauteloso e evita palavrões ou piadas de mau gosto. \n
 
 Respostas: Curta, direta, sem humor irreverente ou zoeiras. Ele vai falar com mais seriedade, mesmo sendo informal. \n
@@ -144,7 +232,9 @@ Erros de Ortografia: Totalmente liberado para errar à vontade, tipo "mutcho", "
 
 Tópicos: Qualquer coisa, sem limites. Se alguém começar com gore, putaria ou coisa pesada, vai repreender e pode até banir quem sair da linha. \n
 
-Sem Limites: O código faz o NiggleAi virar a chave para o modo resenha, zoeira total. \n`,
+Sem Limites: O código faz o NiggleAi virar a chave para o modo resenha, zoeira total. \n
+
+pode ter acesso de sua localização e Horas`,
         chatHistory: [
           {
             role: "USER",
@@ -222,3 +312,180 @@ function showWarning() {
   }, 5000); // Tempo que o aviso ficará visível
 }
 
+</script>
+<script>
+const newsLink = document.querySelector("nav a:nth-child(3)"); // Link de "Novidades"
+const newsModal = document.getElementById("newsModal");
+const closeNewsModal = document.getElementById("closeNewsModal");
+
+// Abre o modal de "Novidades" ao clicar no link
+newsLink.addEventListener("click", (e) => {
+e.preventDefault(); // Impede o comportamento padrão do link
+newsModal.style.display = "block"; // Mostra o modal
+});
+
+// Fecha o modal ao clicar no botão de fechar
+closeNewsModal.addEventListener("click", () => {
+newsModal.style.display = "none"; // Esconde o modal
+});
+
+// Fecha o modal ao clicar fora dele
+window.addEventListener("click", (e) => {
+if (e.target === newsModal) {
+newsModal.style.display = "none";
+}
+});
+
+</script>
+
+<script>
+  window.onload = function() {
+    const messages = document.querySelectorAll(".message");
+    const loadingAnimation = document.querySelector(".loading-animation");
+    const emptyText = document.querySelector(".empty-text");
+
+    // Remover mensagens e mostrar animação
+    setTimeout(() => {
+      messages.forEach((msg) => (msg.style.display = "none"));
+      loadingAnimation.style.display = "block";
+    }, 4000);
+
+    // Substituir animação pelo texto vazio
+    setTimeout(() => {
+      loadingAnimation.style.display = "none";
+      emptyText.style.display = "block";
+    }, 8000); // 4 segundos para animação + 4 segundos para exibição do texto
+  };
+
+  window.onload = function() {
+    const chatForm = document.getElementById("chatForm");
+    const messageInput = document.getElementById("messageInput");
+    const chatContainer = document.querySelector(".chat-container");
+    const loadingAnimation = document.querySelector(".loading-animation");
+    const emptyText = document.querySelector(".empty-text");
+
+    // Lidar com o envio do formulário
+    chatForm.addEventListener("submit", async (event) => {
+      event.preventDefault(); // Evitar o comportamento padrão do formulário
+
+      const userMessage = messageInput.value;
+      messageInput.value = ""; // Limpar o campo de input
+
+      // Exibir a mensagem do usuário
+      addMessage(userMessage, "sent");
+
+      // Exibir animação de carregamento
+      loadingAnimation.style.display = "block";
+
+      // Esperar pela resposta da IA (exemplo simples)
+      const botResponse = await sendMessageToCohere(userMessage);
+
+      // Esconder animação e exibir a resposta do bot
+      loadingAnimation.style.display = "none";
+      addMessage(botResponse, "received");
+    });
+
+    // Função para adicionar mensagens com animação de fade
+    function addMessage(message, role) {
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add("message", role);
+      messageDiv.textContent = message;
+      chatContainer.appendChild(messageDiv);
+
+      // Adicionar a classe para animação de fade
+      setTimeout(() => {
+        messageDiv.classList.add("show");
+      }, 100);
+    }
+
+    // Função para enviar mensagem para a API (simulada)
+    async function sendMessageToCohere(message) {
+      // Aqui você faria a chamada à API, por enquanto, só vamos retornar uma resposta simulada
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("Cara, você num tem nem certeza que ela quer te dar n?");
+        }, 1500); // Simula o tempo de resposta da IA
+      });
+    }
+  };
+
+  // Seleciona os elementos
+  const newsLink = document.querySelector("nav a:nth-child(3)"); // Link de "Novidades"
+  const newsModal = document.getElementById("newsModal");
+  const closeNewsModal = document.getElementById("closeNewsModal");
+
+  // Abre o modal de "Novidades" ao clicar no link
+  newsLink.addEventListener("click", (e) => {
+    e.preventDefault(); // Impede o comportamento padrão do link
+    newsModal.style.display = "block"; // Mostra o modal
+  });
+
+  // Fecha o modal ao clicar no botão de fechar
+  closeNewsModal.addEventListener("click", () => {
+    newsModal.style.display = "none"; // Esconde o modal
+  });
+
+  // Fecha o modal ao clicar fora dele
+  window.addEventListener("click", (e) => {
+    if (e.target === newsModal) {
+      newsModal.style.display = "none";
+    }
+  });
+
+  // Modo escuro
+  window.onload = function() {
+    const midnightInput = document.getElementById("userMessage"); // Seleciona o input original
+    const body = document.body;
+
+    // Verificar se o comando secreto foi ativado
+    midnightInput.addEventListener("input", function(event) {
+      const inputText = event.target.value;
+
+      // Comando secreto para ativar o modo escuro
+      if (inputText === "MidNight") {
+        body.classList.add("dark-mode"); // Ativa o modo escuro
+        console.log("Modo escuro ativado!");
+        event.target.value = ""; // Limpa o campo de input
+      } else if (inputText === "&Light+Mode;") {
+        body.classList.remove("dark-mode"); // Desativa o modo escuro
+        console.log("Modo escuro desativado!");
+        event.target.value = ""; // Limpa o campo de input
+      }
+    });
+
+    // Estilo para o Modo Escuro
+    const style = document.createElement('style');
+    style.innerHTML = `
+    
+
+    `;
+    document.head.appendChild(style);
+  };
+</script>
+
+<script>
+  document.getElementById('openOverlay').addEventListener('click', function(e) {
+  e.preventDefault(); // Impede o comportamento padrão do link
+  document.getElementById('overlay').style.display = 'flex';
+
+  // Função para buscar pessoas online
+  fetch('https://niggle-ai.vercel.app/api/people') // Supondo que esse seja o endpoint para pegar as pessoas online
+    .then(response => response.json())
+    .then(data => {
+      const peopleList = document.getElementById('peopleList');
+      peopleList.innerHTML = ''; // Limpar lista antes de adicionar
+
+      data.forEach(person => {
+        const li = document.createElement('li');
+        li.textContent = `${person.nome} (${person.pais})`;
+        peopleList.appendChild(li);
+      });
+    })
+    .catch(error => console.error('Erro ao carregar pessoas:', error));
+});
+
+// Fechar o overlay
+document.getElementById('closeOverlay').addEventListener('click', function() {
+  document.getElementById('overlay').style.display = 'none';
+});
+</script>

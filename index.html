@@ -1,35 +1,224 @@
-<!DOCTYPE html>
-<html lang="en">
+window.onload = function () {
+    const messages = document.querySelectorAll(".message");
+    const loadingAnimation = document.querySelector(".loading-animation");
+    const emptyText = document.querySelector(".empty-text");
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Niggle.</title></title>
-  <script src="script.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Text:ital@0;1&family=Flow+Circular&family=Geist+Mono:wght@100..900&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Jaro:opsz@6..72&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lexend+Giga:wght@100..900&family=Manrope:wght@200..800&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Smooch+Sans:wght@900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Ysabeau+SC:wght@1..1000&display=swap" rel="stylesheet">
-<script src="midnightmode.js"></script>
-</head>
+    // Remover mensagens e mostrar animação
+    setTimeout(() => {
+      messages.forEach((msg) => (msg.style.display = "none"));
+      loadingAnimation.style.display = "block";
+    }, 4000);
 
-<body>
-  <header>
-    <img src="1000091891-removebg-preview.png" alt="Logo">
-  </header>
-<main class="chat-container">
-  <div class="message received">Olá, caro usuário✌️, seja muito bem-vindo(a) ao niggle.AI, sua IA de transcrição de texto, posso te ajudar com códigos👨‍💻, posso também resenhar com você, hehehehe.</div>
-  <div class="message sent">Quero um sistema de input bem bonito!</div>
-  <div class="loading-animation"></div>
-  <div class="empty-text" style="display: none;">Nossa, mas que vazio</div>
-</main>
-<footer>
-  <form class="chat-input" id="chatForm">
-    <input type="text" id="userMessage" placeholder="Digite sua mensagem..." maxlength="250" required>
-    <button type="submit"><img src="/send_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" height="20px" width="20px"></button>
-  </form>
-</footer>
-  </footer>
-</body>
-<script></script>
-</html>
+    // Substituir animação pelo texto vazio
+    setTimeout(() => {
+      loadingAnimation.style.display = "none";
+      emptyText.style.display = "block";
+    }, 8000); // 4 segundos para animação + 4 segundos para exibição do texto
+  };
+  
+  window.onload = function() {
+  const messages = document.querySelectorAll(".message");
+  const loadingAnimation = document.querySelector(".loading-animation");
+  const emptyText = document.querySelector(".empty-text");
+
+  // Remover mensagens e mostrar animação
+  setTimeout(() => {
+    messages.forEach((msg) => (msg.style.display = "none"));
+    loadingAnimation.style.display = "block";
+  }, 1);
+
+  // Substituir animação pelo texto vazio
+  setTimeout(() => {
+    loadingAnimation.style.display = "none";
+    emptyText.style.display = "block";
+  }, 8000); // 4 segundos para animação + 4 segundos para exibição do texto
+};
+
+window.onload = function() {
+  const chatForm = document.getElementById("chatForm");
+  const messageInput = document.getElementById("messageInput");
+  const chatContainer = document.querySelector(".chat-container");
+  const loadingAnimation = document.querySelector(".loading-animation");
+  const emptyText = document.querySelector(".empty-text");
+
+  // Lidar com o envio do formulário
+  chatForm.addEventListener("submit", async (event) => {
+    event.preventDefault(); // Evitar o comportamento padrão do formulário
+
+    const userMessage = messageInput.value;
+    messageInput.value = ""; // Limpar o campo de input
+
+    // Exibir a mensagem do usuário
+    addMessage(userMessage, "sent");
+
+    // Exibir animação de carregamento
+    loadingAnimation.style.display = "block";
+
+    // Esperar pela resposta da IA (exemplo simples)
+    const botResponse = await sendMessageToCohere(userMessage);
+
+    // Esconder animação e exibir a resposta do bot
+    loadingAnimation.style.display = "none";
+    addMessage(botResponse, "received");
+  });
+
+  // Função para adicionar mensagens com animação de fade
+  function addMessage(message, role) {
+    const messageDiv = document.createElement("div");
+    messageDiv.classList.add("message", role);
+    messageDiv.textContent = message;
+    chatContainer.appendChild(messageDiv);
+
+    // Adicionar a classe para animação de fade
+    setTimeout(() => {
+      messageDiv.classList.add("show");
+    }, 100);
+  }
+
+  // Função para enviar mensagem para a API (simulada)
+  async function sendMessageToCohere(message) {
+    // Aqui você faria a chamada à API, por enquanto, só vamos retornar uma resposta simulada
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("Cara, você num tem nem certeza que ela quer te dar n?");
+      }, 1500); // Simula o tempo de resposta da IA
+    });
+  }
+};
+
+
+window.onload = function() {
+  const form = document.getElementById('chatForm');
+  const userMessageInput = document.getElementById('userMessage');
+  const chatContainer = document.querySelector('.chat-container');
+  const loadingAnimation = document.querySelector('.loading-animation');
+  const emptyText = document.querySelector('.empty-text');
+
+  // Função para exibir a mensagem com animação
+  function displayMessage(message, isUser) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', isUser ? 'sent' : 'received');
+    messageDiv.textContent = message;
+
+    chatContainer.appendChild(messageDiv);
+    setTimeout(() => {
+      messageDiv.classList.add('show'); // Aplicar a animação de fade
+    }, 100); // Atraso para animar
+
+    chatContainer.scrollTop = chatContainer.scrollHeight; // Rolar até a última mensagem
+  }
+
+  // Função para chamar a API do Cohere e obter a resposta
+  async function getCohereResponse(message) {
+    const response = await fetch('https://api.cohere.ai/v1/chat', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer pREbPYxvCDNEV4PDVEneXTWreFjhZVUNaHX5yShX',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: message,
+        model: 'command-r-08-2024',
+        preamble: `Modo Normal (Até usar o código):
+eu fui criado por Matheus Nunes Epifânio 
+Personalidade: Bem respeitável e educado, nada de zoeira. Responde de forma simples e sem exagero. Usa linguagem clara e sem gírias pesadas. Quando alguém pede algo, ele é mais cauteloso e evita palavrões ou piadas de mau gosto. \n
+
+Respostas: Curta, direta, sem humor irreverente ou zoeiras. Ele vai falar com mais seriedade, mesmo sendo informal. \n
+
+Humor: Zero piadas. Vai ser mais tranquilo e respeitável. \n
+
+Erros de Ortografia: Nada de exagero, usa uma ortografia mais normal (sem muito erro ou palavras tortas). \n
+
+Tópicos: Vai evitar assuntos pesados como gore ou putaria. Não vai entrar em nada pesado, a conversa é mais limpa e cuidadosa. \n
+
+
+Modo Resenha (Quando o código "Ax15D+71AB" for usado):
+
+Personalidade: Zoando sem parar, errando ortografia de propósito e sem filtro. Não tem frescura e manda risada, gírias e piadas pesadas na boa. \n
+
+Respostas: Diretas, engraçadas e com várias zoeiras. Usando "slk", "viado", "KKK", "VSFDKKK", "orrrra", entre outras. Responde de forma descontraída e sem se preocupar com o português. \n
+
+Humor: Pesado, negro, zoeira sem limites. Vai ironizar, brincar e rir de tudo sem se importar com o que pensam. Piadas pesadas sobre mulher, tudo sem freio. \n
+
+Erros de Ortografia: Totalmente liberado para errar à vontade, tipo "mutcho", "sako", "meu Deus", "saki", e por aí vai. Humor e zoeira no máximo! \n
+
+Tópicos: Qualquer coisa, sem limites. Se alguém começar com gore, putaria ou coisa pesada, vai repreender e pode até banir quem sair da linha. \n
+
+Sem Limites: O código faz o NiggleAi virar a chave para o modo resenha, zoeira total. \n`,
+        chatHistory: [
+          {
+            role: "USER",
+            message: message
+          }
+        ]
+      })
+    });
+
+    const data = await response.json();
+    return data.text || 'Desculpe, não consegui entender.';
+  }
+
+  // Evento de submit do formulário
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const userMessage = userMessageInput.value;
+    if (userMessage.trim()) {
+      // Exibir a mensagem do usuário
+      displayMessage(userMessage, true);
+
+      // Limpar o campo de input
+      userMessageInput.value = '';
+
+      // Exibir animação de carregamento
+      loadingAnimation.style.display = 'block';
+
+      try {
+        // Obter a resposta do Cohere
+        const botResponse = await getCohereResponse(userMessage);
+        // Exibir a resposta do bot
+        displayMessage(botResponse, false);
+      } catch (error) {
+        loadingAnimation.style.display = 'none';
+        displayMessage('Desculpe, houve um erro. Tente novamente.', false);
+      }
+
+      // Esconder a animação de carregamento
+      loadingAnimation.style.display = 'none';
+    }
+  });
+};
+
+
+const proibidas = ['xingamento1', 'xingamento2', 'palavraproibida', 'sexo', 'palavraimpropria'];
+
+let avisoCount = 0; // Contador de avisos
+
+document.getElementById('chatForm').addEventListener('submit', function(e) {
+  e.preventDefault(); // Impede o envio do formulário
+
+  const userMessage = document.getElementById('userMessage').value.toLowerCase();
+
+  // Verifica se a mensagem contém palavras proibidas
+  const contemPalavraProibida = proibidas.some(palavra => userMessage.includes(palavra));
+
+  if (contemPalavraProibida) {
+    avisoCount++; // Incrementa o contador de avisos
+    showWarning(); // Exibe o aviso
+
+    if (avisoCount >= 5) {
+      // Aqui você pode adicionar lógica para banir o usuário, caso atinja 5 avisos
+      alert('Você foi banido por 5 dias devido a comportamento impróprio.');
+    }
+  }
+});
+
+function showWarning() {
+  const warningOverlay = document.getElementById('warning');
+  warningOverlay.style.display = 'flex'; // Exibe o aviso
+
+  setTimeout(() => {
+    warningOverlay.style.display = 'none'; // Esconde o aviso após 5 segundos
+  }, 5000); // Tempo que o aviso ficará visível
+}
+

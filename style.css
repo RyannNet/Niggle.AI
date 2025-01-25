@@ -103,7 +103,7 @@ header img {
   width: 230px;
   padding: 10px;
   border-radius: 10px;
-  font-size: 5px;
+  font-size: 8px;
   font-family: Lexend Giga, sans serif;
   opacity: 0;
   transition: opacity 1s ease-in-out;
@@ -116,7 +116,7 @@ line-height: 20px;
   word-break: break-word; /* Quebra palavras grandes */
   line-height: 1.5; /* Espaçamento entre linhas */
   padding: 10px;
-  font-size: 12px;
+  font-size: 15px;
   background-color: #e0e8ff; /* Fundo da mensagem recebida */
   color: #000; /* Cor do texto */
   border-radius: 10px; /* Arredondamento dos cantos */
@@ -186,7 +186,7 @@ footer {
   border: 1px solid #E2E2E2;
   border-radius: 20px;
   font-family: Poppins;
-  font-size: 12px;
+  font-size: 15px;
   outline: none;
 }
 

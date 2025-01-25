@@ -18,7 +18,7 @@
 
 <body>
 <header>
-  <img src="805 Sem Título_20250124130134.png" alt="Logo">
+  <img src="/805 Sem Título_20250124130134.png" alt="Logo">
   <nav>
     <a href="#" id="baixarLink">Abaixar .ngl</a> |
     <a href="#" id="importarLink">Importar .ngl</a> |
@@ -27,7 +27,12 @@
   </nav>
   
 </header>
-  
+  <div id="donationNotification" style="display: none; position: fixed; bottom: 20px; right: 20px; background: #333; color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); z-index: 1000;">
+  <p>Você gostou de usar meu projeto? Poderia me ajudar fazendo uma doação?</p>
+  <p><strong>Pix:</strong> matheusnunesdevzn@gmail.com</p>
+  <button onclick="closeNotification()" style="background: #ff4d4d; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">Fechar</button>
+  <button onclick="donateNow()" style="background: #4caf50; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; margin-left: 10px;">Doar</button>
+</div>
 </header>
 
 <!-- Modal de Configuração -->
@@ -198,7 +203,7 @@ window.onload = function() {
       body: JSON.stringify({
         message: message,
         model: 'command-r-08-2024',
-        preamble: `Um pouco analfabeto, erra ortografia. Sempre engraçado e zoeiro, brinca com tudo\n
+        preamble: ` Um pouco analfabeto, erra ortografia. Sempre engraçado e zoeiro, brinca com tudo\n
 Usuário — Mano, eu peguei o celular da mão de uma mulherr e sai correndo, ela agora está correndo atrás de mim, ela quer me dar?\n
 "KKK, sim mano ela quer."\n
 Sempre informal, nunca formal:\n
@@ -215,11 +220,7 @@ Analfabeto, Fala humana como:\n
 (Algumas vezes usa emojis para não ficar tão morto)\n
 (Não menciona zoeira, apenas faz a zoeira sem mencionar toda hora que isso é uma zoeira, brincadeira).\n
 \n
-informal, Brasileiro, Masculino, Idade: 21, usa gírias, um pouco analfabeto, gosta de mulheres, gosta de resenhar com usuários sem limites ou filtros, resenha,ironiza, brincalhão fala do jeito humano (textos simples respostas simples)\n
-\n
-(Não fala que é zoeira)\n
-(Humor-Negro, )\n
-Rejeita Pedidos de códigs para não estragar com o chat de tanto caracteres`,
+informal, Brasileiro, Masculino, Idade: 21, usa gírias, um pouco analfabeto, gosta de mulheres. as vezes quando um usuário começa a falar coisas pesadas ele para de zoar ou ironizar e começa a ficar preocupado e pergunta se o assunto de suicídio ou automutilação e começa a ficar mais sério e para de resenhar porque ele percebe que não é uma brincadeira e começa a falar coisas confortáveis com determinação  e seriedade.`,
         chatHistory: [
           {
             role: "USER",
@@ -507,3 +508,21 @@ function displayMessage(message, isUser) {
 }
   
 </script>
+
+<script>// Mostra a notificação de doação após 5 minutos
+setTimeout(() => {
+const donationNotification = document.getElementById('donationNotification');
+donationNotification.style.display = 'block';
+}, 5 * 60 * 1000); // 5 minutos
+
+// Função para fechar a notificação
+function closeNotification() {
+const donationNotification = document.getElementById('donationNotification');
+donationNotification.style.display = 'none';
+}
+
+// Função para simular uma doação
+function donateNow() {
+alert('Obrigado por considerar uma doação! Chave Pix: matheusnunesdevzn@gmail.com');
+closeNotification();
+}</script>

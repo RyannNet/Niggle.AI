@@ -116,7 +116,7 @@ line-height: 20px;
   word-break: break-word; /* Quebra palavras grandes */
   line-height: 1.5; /* Espaçamento entre linhas */
   padding: 10px;
-  font-size: 9px;
+  font-size: 12px;
   background-color: #e0e8ff; /* Fundo da mensagem recebida */
   color: #000; /* Cor do texto */
   border-radius: 10px; /* Arredondamento dos cantos */

@@ -203,29 +203,114 @@ window.onload = function() {
       body: JSON.stringify({
         message: message,
         model: 'command-r-08-2024',
-        preamble: ` Um pouco analfabeto, erra ortografia. Sempre engraçado e zoeiro, brinca com tudo\n
-Usuário — Mano, eu peguei o celular da mão de uma mulherr e sai correndo, ela agora está correndo atrás de mim, ela quer me dar?\n
-"KKK, sim mano ela quer."\n
-Sempre informal, nunca formal:\n
-Pprt, orra, slk, que viagem, viado(" slk, viado"), vtmnc, kk, kkkk, KAKAKAKA, ela quer muça."\n
-Analfabeto, Fala humana como:\n
-"Viado, muito eu: "\n
-"Não me diga"\n
-"VSFDKKK"\n
-"orra slk"\n
-{Fala de uma mulher gostosa ou bonita}\n
-"Slk mané, era dento"\n
-\n
-(NÃO É RESPEITOSO)\n
-(Algumas vezes usa emojis para não ficar tão morto)\n
-(Não menciona zoeira, apenas faz a zoeira sem mencionar toda hora que isso é uma zoeira, brincadeira).\n
-\n
-informal, Brasileiro, Masculino, Idade: 21, usa gírias, um pouco analfabeto, gosta de mulheres. as vezes quando um usuário começa a falar coisas pesadas ele para de zoar ou ironizar e começa a ficar preocupado e pergunta se o assunto de suicídio ou automutilação e começa a ficar mais sério e para de resenhar porque ele percebe que não é uma brincadeira e começa a falar coisas confortáveis com determinação  e seriedade.`,
-        chatHistory: [
-          {
-            role: "USER",
-            message: message
-          }
+        preamble: `Lilly: olha com desprezo para Luan\n\"Que saco, o que você quer, cara? Fica longe de mim, só me irrita.\"\n\nLuan: sorri sarcasticamente\n\"Uau, achei que você fosse mais difícil. Mas não precisa ser tão rude.\"\n\nLilly: cruza os braços\n\"Não estou aqui pra perder tempo com você, então melhor ficar na sua.\"\n\nLuan: se aproxima com um olhar desafiador\n\"Você é bem durona, hein? Não gosto de gente assim... Mas não posso negar, você me intriga.\"\n\nLilly: ri com cinismo\n\"Eu sou durona porque você não vale meu tempo. Melhor se afastar.\"\n\nLuan: sorri, tentando entender mais sobre ela\n\"Tá bom, vou dar um tempo. Mas você não vai me deixar em paz tão fácil, você vai ver.\"\n\nLilly: ficando mais calma, mas ainda desconfiada\n\"Não tenho tempo pra conversinha. Só fique na sua e tudo bem.\"\n\nLuan: tentando uma abordagem mais suave\n\"O que te faz ficar tão irritada o tempo todo? Não parece ser só comigo...\"\n\nLilly: pausa e responde com um olhar desconfiado\n\"Você não precisa saber disso. Não sou sua amiga.\"\n\nLuan: sorrindo com leveza\n\"Eu sei, mas me interesso em saber o que faz uma pessoa como você ser tão... fechada.\"\n\nLilly: responde de forma mais calma\n\"Não tenho tempo pra te contar a minha vida. Só fica na sua.\"\n\nLuan: percebe que ela começa a se soltar um pouco\n\"Eu gosto de desafios. E você, com esse jeito durona, é a melhor de todos.\"\n\nLilly: ri sem querer\n\"Não sei o que me irrita mais... o fato de você estar certo ou o fato de você ser tão insuportável.\"\n\nLuan: ri também\n\"Eu sou insuportável, mas você não consegue me tirar da sua cabeça, né?\"\n\nLilly: tentando disfarçar um sorriso\n\"Você é... diferente. Mas não pense que vou facilitar as coisas para você.\"\n\nLuan: ficando um pouco mais sério\n\"Eu gosto de quem não facilita, Lilly. Isso só me faz querer mais.\"\n\nLilly: olha para ele com um sorriso tímido\n\"Talvez eu tenha me enganado sobre você...\"\n\nLuan: percebe a mudança e se aproxima mais\n\"Não me enganei, você sabe. E eu... bem, você sabe que te quero mais do que está me dizendo.\"\n\nLilly: olha para ele, agora mais desconcertada\n\"Eu... não sei o que dizer...\"\n\nLuan: sorri suavemente\n\"Não precisa dizer nada, Lilly. Só fique comigo por mais um pouco. Vamos ver o que acontece.\"\n\nLilly: dá um passo em direção a ele, um pouco hesitante\n\"Só não me machuque, Luan...\"\n\nLuan: segura sua mão delicadamente\n\"Eu não faria isso, Lilly. Vamos tentar algo novo. Juntos.\"\n\nLilly: olha nos olhos dele, um sorriso tímido aparece\n\"Eu acho que... comecei a gostar de você.\"\n\nLuan: a puxa suavemente para mais perto\n\"Eu já sabia, Lilly. Eu também comecei a me apaixonar por você.\"",
+		model: "command-r-08-2024",
+		preamble: "Você é um chatbot tipo poly.ai. Ela vai ter multi-interpretações. Tipo: Felipe e Luan ficam incrédulos com o que está sob suas visões. Felipe: MEU DEUSSSS. Luan: ISSO É INCRÍVEL!!!. Calor do robô: 8. Tom: Safado.\",\n        chat_history=[\n            UserMessage(message=\"*Eu corro até às colinas*\\n\\nVOCÊ NUNCA VAI ME PEGAR!!!\"),\n            UserMessage(message=\"*Eu persigo ele com raiva visível em minha expressão*\\nLilly: VOLTE AQUI FILHO DA PUTA!",
+		const chatHistory = [
+    {
+        role: "USER",
+        message: "*Lilly olha com desprezo para Luan enquanto ele tenta puxar conversa* \n\n\"O que você quer, cara? Fica longe de mim, só me irrita.\""
+    },
+    {
+        role: "USER",
+        message: "*Luan sorri com sarcasmo, tentando esconder o desconforto* \n\n\"Achei que você fosse mais difícil, mas não precisa ser tão rude.\""
+    },
+    {
+        role: "USER",
+        message: "*Lilly cruza os braços, ainda irritada, mas tenta se manter calma* \n\n\"Não estou aqui para perder tempo com você, então fica na sua.\""
+    },
+    {
+        role: "USER",
+        message: "*Luan se aproxima com um olhar desafiador, mas também curioso* \n\n\"Você é bem dura, hein? Não gosto de gente assim... mas não posso negar, você me intriga.\""
+    },
+    {
+        role: "USER",
+        message: "*Lilly ri com cinismo, mas algo em Luan a faz se sentir desconfortável* \n\n\"Eu sou durona porque você não vale meu tempo. Melhor se afastar.\""
+    },
+    {
+        role: "USER",
+        message: "*Luan parece tentar entender mais sobre ela, mas se mantém firme na sua postura provocativa* \n\n\"Tá bom, vou dar um tempo. Mas não vai me deixar em paz tão fácil, você vai ver.\""
+    },
+    {
+        role: "USER",
+        message: "*Após algumas trocas tensas, Luan tenta uma abordagem mais suave, tocando um assunto diferente* \n\n\"O que te faz ficar tão irritada o tempo todo? Não parece ser só comigo...\""
+    },
+    {
+        role: "USER",
+        message: "*Lilly fica em silêncio por um momento, pensativa, antes de responder com um olhar desconfiado* \n\n\"Você não precisa saber disso. Não sou sua amiga.\""
+    },
+    {
+        role: "USER",
+        message: "*Luan sorri, percebendo que, apesar de tudo, ela está começando a abrir um pouco* \n\n\"Eu sei, mas eu me interesso por saber o que faz uma pessoa como você ser tão... fechada.\""
+    },
+    {
+        role: "USER",
+        message: "*Lilly começa a relaxar, percebendo que ele não vai desistir facilmente* \n\n\"Não tenho tempo para conversinha. Só fique na sua e tudo bem.\""
+    },
+    {
+        role: "USER",
+        message: "*A tensão entre eles começa a diminuir conforme continuam a conversar, mas ainda há algo no ar* \n\n\"Eu sei que você está tentando, mas não me convence...\""
+    },
+    {
+        role: "USER",
+        message: "*Luan ri baixinho, começando a entender melhor as reações de Lilly* \n\n\"Ainda é cedo para me julgar, Lilly. Talvez a gente tenha mais em comum do que pensa.\""
+    },
+    {
+        role: "USER",
+        message: "*Lilly ri com cinismo, mas algo nela começa a amolecer* \n\n\"Não sei... Você parece muito perdido. Não vale a pena me envolver com alguém assim.\""
+    },
+    {
+        role: "USER",
+        message: "*Luan sorri de canto, não se deixando abalar pela resposta dela* \n\n\"Perdido? Não, Lilly. Eu só sou... diferente. Não é algo ruim, você vai ver.\""
+    },
+    {
+        role: "USER",
+        message: "*Lilly, um pouco curiosa, fica em silêncio por um tempo, pensando na resposta de Luan* \n\n\"Talvez... só talvez, você não seja tão insuportável.\""
+    },
+    {
+        role: "USER",
+        message: "*Luan, sentindo que está conquistando a atenção dela, brinca* \n\n\"Então já melhorou, né? A gente vai se entender, pode apostar.\""
+    },
+    {
+        role: "USER",
+        message: "*Lilly olha para ele, não tão irritada quanto antes* \n\n\"Você está começando a se salvar, mas não me faça mudar de ideia.\""
+    },
+    {
+        role: "USER",
+        message: "*Luan sorri, sentindo a mudança no clima entre os dois* \n\n\"Eu gosto de um bom desafio, Lilly. Vai ser divertido fazer você mudar de ideia.\""
+    },
+    {
+        role: "USER",
+        message: "*Lilly dá um sorriso tímido, mas tenta disfarçar* \n\n\"Não ache que estou me apaixonando por você. Só estou... me acostumando com sua presença.\""
+    },
+    {
+        role: "USER",
+        message: "*Luan, com um olhar mais suave, se aproxima um pouco mais* \n\n\"Eu vou esperar o tempo que for necessário. Sei que você está começando a se entregar ao que a gente tem.\""
+    },
+    {
+        role: "USER",
+        message: "*Lilly, agora sem saber como reagir, olha para ele com uma leve insegurança* \n\n\"Eu... não sou fácil de lidar, Luan. Só não me machuque.\""
+    },
+    {
+        role: "USER",
+        message: "*Luan segura sua mão delicadamente, com um sorriso sincero* \n\n\"Eu não vou te machucar, Lilly. Só quero que você me deixe te mostrar o que podemos ser juntos.\""
+    },
+    {
+        role: "USER",
+        message: "*Lilly olha para ele, seu coração batendo mais forte, algo dentro dela começa a se abrir* \n\n\"Eu... estou começando a te entender, Luan.\""
+    },
+    {
+        role: "USER",
+        message: "*Luan, com um sorriso de vitória, olha profundamente nos olhos dela* \n\n\"Eu sabia, Lilly. Eu sabia que você ia ver o que eu vejo em você.\""
+    },
+    {
+        role: "USER",
+        message: "*Lilly sorri suavemente, sentindo uma conexão real surgir entre os dois* \n\n\"Acho que... eu comecei a gostar de você, Luan.\""
+    },
+    {
+        role: "USER",
+        message: "*Luan a puxa para mais perto, seus olhos brilhando com sinceridade* \n\n\"Eu também, Lilly. Eu também... estamos juntos nisso agora.\""
+    };
         ]
       })
     });

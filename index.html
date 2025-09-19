@@ -3,644 +3,379 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Niggle AI - Design Reformulado</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Overlay de Manutenção</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ===== VARIÁVEIS E FONTES ===== */
-        :root {
-            --primary: #4361ee;
-            --primary-dark: #3a56d4;
-            --secondary: #7209b7;
-            --light: #f8f9fa;
-            --dark: #1a1a2e;
-            --gray-100: #f8f9fa;
-            --gray-200: #e9ecef;
-            --gray-300: #dee2e6;
-            --gray-600: #6c757d;
-            --gray-800: #343a40;
-            --bubble-ai: #e9ecef;
-            --bubble-user: linear-gradient(120deg, var(--primary) 0%, var(--primary-dark) 100%);
-            --header-link: #495057;
-            --header-link-hover: #6c63ff;
-            --border-radius: 16px;
-            --transition: 0.2s ease;
-            --modal-bg: #ffffff;
-            --modal-outline: rgba(0,0,0,.1);
-            --modal-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            --overlay-bg: rgba(0,0,0,0.5);
-            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
-            --success: #28a745;
-            --warning: #ffc107;
-            --danger: #dc3545;
-        }
-
-        /* ===== RESET E BASE ===== */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            background: linear-gradient(135deg, var(--light) 0%, #e6e9f0 100%);
-            color: var(--gray-800);
-            font-family: var(--font-main);
-            font-size: 16px;
-            line-height: 1.6;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            transition: background var(--transition), color var(--transition);
-        }
-
-        /* ===== LAYOUT CONTAINER ===== */
-        .app-container {
             display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* ===== HEADER ===== */
-        header {
-            display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 1rem 2rem;
-            background: #ffffff;
-            border-bottom: 1px solid var(--gray-300);
-            box-shadow: var(--shadow-sm);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 20px;
         }
         
-        header img {
-            width: 150px;
-            height: auto;
-            object-fit: contain;
-        }
-        
-        header nav {
-            display: flex;
-            gap: 1.5rem;
-        }
-        
-        header nav a {
-            color: var(--header-link);
-            font-weight: 500;
-            text-decoration: none;
-            font-size: 0.95rem;
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            transition: all var(--transition);
-        }
-        
-        header nav a:hover,
-        header nav a:focus {
-            color: var(--header-link-hover);
-            background: var(--gray-200);
-            outline: none;
-        }
-
-        /* ===== MAIN CONTENT ===== */
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding-bottom: 120px;
-        }
-
-        /* ===== CHAT CONTAINER ===== */
-        .chat-container {
-            flex: 1;
-            padding: 1.5rem 1rem;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
+        .maintenance-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            padding: 50px 40px;
+            text-align: center;
+            max-width: 800px;
             width: 100%;
-        }
-
-        /* ===== MESSAGES ===== */
-        .message {
-            max-width: 75%;
-            padding: 1rem 1.5rem;
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            line-height: 1.5;
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            word-break: break-word;
-            box-shadow: var(--shadow-sm);
-            margin: 0.25rem 0;
             position: relative;
-            animation: fadeIn 0.3s forwards;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
         }
         
         @keyframes fadeIn {
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .message.received {
-            background: var(--bubble-ai);
-            color: var(--gray-800);
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
-        }
-        
-        .message.sent {
-            background: var(--bubble-user);
-            color: #fff;
-            align-self: flex-end;
-            border-bottom-right-radius: 4px;
-        }
-
-        /* ===== FOOTER & INPUT ===== */
-        footer {
-            background: #FFF;
-            padding: 1rem;
-            border-top: 1px solid var(--gray-300);
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-            position: fixed;
-            bottom: 0;
+        .maintenance-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
             left: 0;
-            width: 100%;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4361ee, #7209b7, #3a0ca3);
+            border-radius: 10px 10px 0 0;
         }
         
-        .input-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
+        .icon-container {
+            margin-bottom: 30px;
         }
         
-        .chat-input {
+        .main-icon {
+            font-size: 80px;
+            color: #4361ee;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        h1 {
+            color: #3a0ca3;
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        p {
+            color: #4a5568;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .progress-container {
+            background: #e2e8f0;
+            border-radius: 10px;
+            height: 12px;
+            margin: 40px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #4361ee, #7209b7);
+            height: 100%;
+            width: 75%;
+            border-radius: 10px;
+            animation: progressAnimation 1.5s ease-in-out;
+        }
+        
+        @keyframes progressAnimation {
+            0% { width: 0%; }
+            100% { width: 75%; }
+        }
+        
+        .features {
             display: flex;
-            gap: 0.75rem;
-            width: 100%;
-            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
         }
         
-        .chat-input input {
+        .feature {
             flex: 1;
-            padding: 0.875rem 1.25rem;
-            border-radius: 24px;
-            border: 1px solid var(--gray-300);
-            font-size: 1rem;
-            font-family: var(--font-main);
-            outline: none;
-            transition: border-color var(--transition), box-shadow var(--transition);
-            background: var(--gray-100);
-            color: var(--gray-800);
+            min-width: 200px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
         }
         
-        .chat-input input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        .feature:hover {
+            transform: translateY(-5px);
         }
         
-        .chat-input button {
+        .feature i {
+            font-size: 36px;
+            color: #4361ee;
+            margin-bottom: 15px;
+        }
+        
+        .feature h3 {
+            color: #3a0ca3;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .feature p {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+        
+        .countdown {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+        
+        .countdown h3 {
+            color: #3a0ca3;
+            margin-bottom: 15px;
+        }
+        
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .time-unit {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 80px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .time-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4361ee;
+        }
+        
+        .time-label {
+            font-size: 14px;
+            color: #718096;
+            text-transform: uppercase;
+        }
+        
+        .social-links {
+            margin-top: 40px;
+        }
+        
+        .social-links h3 {
+            margin-bottom: 20px;
+            color: #3a0ca3;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 50px;
             height: 50px;
-            border: none;
-            border-radius: 50%;
-            background: var(--bubble-user);
-            color: #FFF;
-            font-size: 1.25rem;
-            cursor: pointer;
-            transition: transform var(--transition), box-shadow var(--transition);
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        
-        .chat-input button:hover,
-        .chat-input button:focus {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-md);
-        }
-
-        /* ===== TYPING INDICATOR ===== */
-        .typing-indicator {
-            font-size: 0.875rem;
-            color: var(--gray-600);
-            padding: 0.5rem 1rem;
-            align-self: flex-start;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-        
-        .typing-dots {
-            display: flex;
-            gap: 0.25rem;
-        }
-        
-        .typing-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: var(--gray-600);
-            animation: typingAnimation 1.4s infinite ease-in-out;
-        }
-        
-        .typing-dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-        
-        .typing-dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-        
-        @keyframes typingAnimation {
-            0%, 60%, 100% {
-                transform: translateY(0);
-                opacity: 0.6;
-            }
-            30% {
-                transform: translateY(-5px);
-                opacity: 1;
-            }
-        }
-
-        /* ===== MODAL ===== */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            inset: 0;
-            background: var(--overlay-bg);
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-        
-        .modal-content {
-            background: var(--modal-bg);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            width: 100%;
-            max-width: 500px;
-            box-shadow: var(--modal-shadow);
-            position: relative;
-        }
-        
-        .modal-title {
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--gray-800);
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--gray-600);
-            padding: 0.25rem;
-        }
-        
-        .modal-close:hover {
-            color: var(--gray-800);
-        }
-        
-        .modal-list {
-            text-align: left;
-            margin: 0 auto;
-            max-width: 100%;
-            padding-left: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .modal-list li {
-            margin-bottom: 0.5rem;
-            line-height: 1.5;
-        }
-        
-        .modal-btn {
-            background: var(--primary);
+            background: #4361ee;
             color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: background-color var(--transition);
+            border-radius: 50%;
+            font-size: 20px;
+            transition: all 0.3s;
         }
         
-        .modal-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        /* ===== DONATION NOTIFICATION ===== */
-        #donationNotification {
-            display: none;
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--modal-shadow);
-            z-index: 1000;
-            max-width: 350px;
-            border-left: 4px solid var(--success);
+        .social-icons a:hover {
+            background: #3a0ca3;
+            transform: translateY(-3px);
         }
         
-        #donationNotification p {
-            margin-bottom: 1rem;
-            line-height: 1.5;
+        .contact-info {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
         }
         
-        #donationNotification strong {
-            color: var(--success);
+        .contact-info p {
+            margin-bottom: 5px;
         }
         
-        .notification-close {
-            background: var(--gray-300);
-            color: var(--gray-800);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background-color var(--transition);
+        .contact-info a {
+            color: #4361ee;
+            text-decoration: none;
+            transition: color 0.3s;
         }
         
-        .notification-close:hover {
-            background: var(--gray-400);
-        }
-
-        /* ===== WARNING OVERLAY ===== */
-        #warning {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(220, 53, 69, 0.9);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            flex-direction: column;
-            text-align: center;
-            padding: 2rem;
+        .contact-info a:hover {
+            color: #3a0ca3;
+            text-decoration: underline;
         }
         
-        .warning-content {
-            max-width: 500px;
-        }
-        
-        .warning-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        /* ===== DARK MODE ===== */
-        body.dark-mode {
-            background: #121212;
-            color: #e0e0e0;
-        }
-        
-        .dark-mode header {
-            background: #1e1e1e;
-            border-bottom: 1px solid #333;
-        }
-        
-        .dark-mode .message.received {
-            background: #2d2d2d;
-            color: #e0e0e0;
-        }
-        
-        .dark-mode footer {
-            background: #1e1e1e;
-            border-top: 1px solid #333;
-        }
-        
-        .dark-mode .chat-input input {
-            background: #2d2d2d;
-            color: #e0e0e0;
-            border-color: #444;
-        }
-        
-        .dark-mode .modal-content {
-            background: #2d2d2d;
-            color: #e0e0e0;
-        }
-        
-        .dark-mode #donationNotification {
-            background: #2d2d2d;
-            color: #e0e0e0;
-        }
-
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            header {
-                padding: 1rem;
+            .maintenance-container {
+                padding: 30px 20px;
             }
             
-            header nav {
-                gap: 0.75rem;
+            h1 {
+                font-size: 28px;
             }
             
-            header nav a {
-                padding: 0.4rem 0.75rem;
-                font-size: 0.875rem;
+            p {
+                font-size: 16px;
             }
             
-            .message {
-                max-width: 90%;
-                padding: 0.875rem 1.25rem;
-                font-size: 0.9375rem;
-            }
-            
-            .chat-input input {
-                padding: 0.75rem 1rem;
-            }
-            
-            .chat-input button {
-                width: 44px;
-                height: 44px;
-            }
-            
-            #donationNotification {
-                right: 1rem;
-                left: 1rem;
-                max-width: none;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header {
+            .features {
                 flex-direction: column;
-                gap: 0.75rem;
-                padding: 0.75rem;
             }
             
-            .message {
-                max-width: 95%;
-                padding: 0.75rem 1rem;
+            .timer {
+                flex-wrap: wrap;
             }
             
-            .modal-content {
-                padding: 1.5rem 1rem;
+            .time-unit {
+                min-width: 70px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <header>
-            <img src="https://via.placeholder.com/150x50/4361ee/ffffff?text=Niggle.AI" alt="Logo Niggle.AI">
-            <nav aria-label="Links principais">
-                <a href="#" id="baixarLink">Baixar .ngl</a>
-                <a href="#" id="importarLink">Importar .ngl</a>
-                <a href="#" id="novidadesLink">Novidades</a>
-                <a href="#" id="configLink">Config.</a>
-            </nav>
-        </header>
+    <div class="maintenance-container">
+        <div class="icon-container">
+            <i class="fas fa-tools main-icon"></i>
+        </div>
         
-        <main class="chat-container" id="chatContainer" aria-live="polite">
-            <div class="message received show">Olá, <strong>bem-vindo</strong> ao Niggle.AI!</div>
-        </main>
+        <h1>Estamos em Manutenção</h1>
+        <p>Estamos trabalhando para melhorar sua experiência. Voltaremos em breve com novidades e melhorias!</p>
         
-        <footer>
-            <div class="input-container">
-                <form class="chat-input" id="chatForm" autocomplete="off" aria-label="Envio de mensagem">
-                    <input type="text" id="userMessage" placeholder="Digite sua mensagem..." maxlength="350" required aria-label="Mensagem">
-                    <button type="submit" aria-label="Enviar mensagem">→</button>
-                </form>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-bolt"></i>
+                <h3>Performance Aprimorada</h3>
+                <p>Estamos otimizando o sistema para uma experiência mais rápida e eficiente.</p>
             </div>
-            <div class="typing-indicator" id="typingIndicator">
-                Niggle está digitando
-                <span class="typing-dots">
-                    <span class="typing-dot"></span>
-                    <span class="typing-dot"></span>
-                    <span class="typing-dot"></span>
-                </span>
+            
+            <div class="feature">
+                <i class="fas fa-paint-brush"></i>
+                <h3>Novo Design</h3>
+                <p>Preparamos uma interface renovada e mais intuitiva para você.</p>
             </div>
-        </footer>
-
-        <div id="configModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="configModalTitle">
-            <div class="modal-content">
-                <h2 class="modal-title" id="configModalTitle">Configurações</h2>
-                <button class="modal-close" onclick="closeModal('configModal')">&times;</button>
-                <p>Configurações serão implementadas em breve.</p>
-                <button class="modal-btn" onclick="closeModal('configModal')">Fechar</button>
+            
+            <div class="feature">
+                <i class="fas fa-lock"></i>
+                <h3>Mais Segurança</h3>
+                <p>Implementamos novas medidas de segurança para proteger seus dados.</p>
             </div>
         </div>
         
-        <div id="newsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
-            <div class="modal-content">
-                <h2 class="modal-title" id="newsModalTitle">Novidades</h2>
-                <button class="modal-close" onclick="closeModal('newsModal')">&times;</button>
-                <ul class="modal-list">
-                    <li>Agora você pode continuar seu chat importando o .ngl</li>
-                    <li>Melhoria no design</li>
-                    <li>Correções de bugs</li>
-                    <li>Compatibilidade móvel</li>
-                </ul>
-                <button class="modal-btn" onclick="closeModal('newsModal')">Fechar</button>
+        <div class="countdown">
+            <h3>Voltamos em:</h3>
+            <div class="timer">
+                <div class="time-unit">
+                    <div class="time-value" id="days">02</div>
+                    <div class="time-label">Dias</div>
+                </div>
+                
+                <div class="time-unit">
+                    <div class="time-value" id="hours">12</div>
+                    <div class="time-label">Horas</div>
+                </div>
+                
+                <div class="time-unit">
+                    <div class="time-value" id="minutes">45</div>
+                    <div class="time-label">Minutos</div>
+                </div>
+                
+                <div class="time-unit">
+                    <div class="time-value" id="seconds">30</div>
+                    <div class="time-label">Segundos</div>
+                </div>
             </div>
         </div>
         
-        <div id="donationNotification">
-            <p>Você gostou de usar meu projeto? Poderia me ajudar fazendo uma doação?</p>
-            <p><strong>Pix:</strong> matheusnunesdevzn@gmail.com</p>
-            <button class="notification-close" onclick="closeNotification()">Fechar</button>
-        </div>
-
-        <div id="warning" class="overlay">
-            <div class="warning-content">
-                <div class="warning-icon">⚠️</div>
-                <h2>Aviso</h2>
-                <p>Você utilizou uma palavra inadequada. Comportamentos impróprios podem resultar em banimento.</p>
+        <div class="social-links">
+            <h3>Acompanhe nossas redes sociais</h3>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
             </div>
+        </div>
+        
+        <div class="contact-info">
+            <p>Precisa de ajuda? Entre em contato conosco:</p>
+            <p>Email: <a href="mailto:suporte@exemplo.com">suporte@exemplo.com</a></p>
         </div>
     </div>
 
     <script>
-        // Elementos principais
-        const chatContainer = document.getElementById('chatContainer');
-        const chatForm = document.getElementById('chatForm');
-        const userMessageInput = document.getElementById('userMessage');
-        const typingIndicator = document.getElementById('typingIndicator');
-        const warningOverlay = document.getElementById('warning');
-
-        // Lista de palavras proibidas
-        const proibidas = ['xingamento1', 'xingamento2', 'palavraproibida', 'sexo', 'palavraimpropria'];
-        let avisoCount = 0;
-
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', function() {
-            // Esconder o indicador de digitação inicialmente
-            typingIndicator.style.display = 'none';
+        // Contagem regressiva
+        function updateCountdown() {
+            const days = document.getElementById('days');
+            const hours = document.getElementById('hours');
+            const minutes = document.getElementById('minutes');
+            const seconds = document.getElementById('seconds');
             
-            // Adicionar mais mensagens após um tempo (apenas para demonstração)
-            setTimeout(() => {
-                appendMessage('Como posso ajudar você hoje?', 'received');
-            }, 1000);
-        });
-
-        // Evento de envio do formulário
-        chatForm.addEventListener('submit', e => {
-            e.preventDefault();
-            const msg = userMessageInput.value.trim();
-            if (!msg) return;
-
-            // Verificar palavras proibidas
-            const msgLower = msg.toLowerCase();
-            if (proibidas.some(palavra => msgLower.includes(palavra))) {
-                avisoCount++;
-                showWarning();
-                if (avisoCount >= 5) {
-                    alert("Você foi banido por 5 dias devido a comportamento impróprio.");
-                    userMessageInput.disabled = true;
-                    chatForm.querySelector("button").disabled = true;
+            // Definindo a data-alvo (2 dias a partir de agora)
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 2);
+            targetDate.setHours(12, 0, 0, 0);
+            
+            const updateTimer = () => {
+                const now = new Date();
+                const difference = targetDate - now;
+                
+                if (difference <= 0) {
+                    days.textContent = '00';
+                    hours.textContent = '00';
+                    minutes.textContent = '00';
+                    seconds.textContent = '00';
+                    return;
                 }
-                return;
-            }
-
-            appendMessage(msg, 'sent');
-            userMessageInput.value = '';
-            showTyping();
-
-            // Simular resposta após um tempo
-            setTimeout(() => {
-                hideTyping();
-                appendMessage(getResponse(msg), 'received');
-            }, 1000 + Math.random() * 1000);
-        });
-
-        // Funções de manipulação de mensagens
-        function appendMessage(text, type) {
-            const div = document.createElement('div');
-            div.className = `message ${type}`;
-            div.innerHTML = text.replace(/\n/g, '<br>');
-            chatContainer.appendChild(div);
-            setTimeout(() => div.classList.add('show'), 10);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+                
+                const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((difference % (1000 * 60)) / 1000);
+                
+                days.textContent = d.toString().padStart(2, '0');
+                hours.textContent = h.toString().padStart(2, '0');
+                minutes.textContent = m.toString().padStart(2, '0');
+                seconds.textContent = s.toString().padStart(2, '0');
+            };
+            
+            updateTimer();
+            setInterval(updateTimer, 1000);
         }
-
-        function showTyping() {
-            typingIndicator.style.display = 'flex';
-        }
-
-        function hideTyping() {
-            typingIndicator.style.display = 'none';
-        }
-
-        function showWarning() {
-            if (!warningOverlay) return;
-            warningOverlay.style.display = 'flex';
-            setTimeout(() => {
-                warningO
+        
+        document.addEventListener('DOMContentLoaded', updateCountdown);
+    </script>
+</body>
+</html>

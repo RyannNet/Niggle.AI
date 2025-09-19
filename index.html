@@ -8,14 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@200;400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* ===== RESET E BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* ===== VARIÁVEIS ===== */
         :root {
             --primary: #004AFF;
             --primary-dark: #0035B0;
@@ -29,212 +21,192 @@
             --gradient-end: #E6EEFF;
             --warning: #FF4D4D;
         }
-
-        /* ===== ESTILOS GERAIS ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Lexend Giga', sans-serif;
+            font-family: 'Lexend Giga', 'Poppins', sans-serif;
             background: linear-gradient(195deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end), #FFEFFD);
-            color: #000000;
+            color: #222;
             display: flex;
             flex-direction: column;
-            font-size: 12px;
-            height: 100vh;
+            font-size: 14px;
+            min-height: 100vh;
         }
-
-        /* ===== HEADER ===== */
         header {
             background: linear-gradient(195deg, var(--gradient-start), var(--gradient-mid));
             border-bottom: 1px solid #00A8FF;
-            padding: 10px;
-            box-shadow: 0px 0px 30px #138CFF66;
-            text-align: center;
+            padding: 12px 20px;
+            box-shadow: 0px 0px 18px #138CFF66;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
         header img {
-            width: 150px;
-            height: 50px;
+            width: 140px;
+            height: 44px;
+            object-fit: contain;
         }
-
+        header nav {
+            display: flex;
+            gap: 8px;
+        }
         header nav a {
             color: #959595;
-            font-weight: bold;
+            font-weight: 500;
             text-decoration: none;
-            font-size: 12px;
-            margin: 0 10px;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: background 0.2s, color 0.2s;
         }
-
-        header nav a:hover {
+        header nav a:hover,
+        header nav a:focus {
             color: #0065FF;
-            transition: color 0.5s ease;
+            background: #eaf2ff;
+            outline: none;
         }
-
-        /* ===== CONTAINER DE CHAT ===== */
         .chat-container {
             flex: 1;
-            padding: 15px;
+            padding: 16px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 10px;
+            background: transparent;
+            scroll-behavior: smooth;
         }
-
-        /* ===== MENSAGENS ===== */
         .message {
             max-width: 70%;
             padding: 12px 15px;
-            border-radius: 12px;
-            line-height: 1.5;
+            border-radius: 14px;
+            line-height: 1.7;
             opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            word-wrap: break-word;
-            font-size: 14px;
+            transition: opacity 0.4s cubic-bezier(.4,0,.2,1), transform 0.3s;
+            word-break: break-word;
+            font-size: 15px;
+            box-shadow: 0 2px 6px #0001;
         }
-
-        .message.received {
-            background: #e0e8ff;
-            color: #000;
-            align-self: flex-start;
-        }
-
-        .message.sent {
-            background: #004AFF;
-            color: #fff;
-            align-self: flex-end;
-        }
-
         .message.show {
             opacity: 1;
+            transform: translateY(0);
         }
-
-        /* ===== RODAPÉ E INPUT ===== */
+        .message.received {
+            background: var(--ai-bubble);
+            color: #222;
+            align-self: flex-start;
+            border-bottom-left-radius: 0;
+        }
+        .message.sent {
+            background: var(--primary);
+            color: #fff;
+            align-self: flex-end;
+            border-bottom-right-radius: 0;
+        }
         footer {
-            padding: 10px 20px;
+            padding: 14px 24px;
             border-top: 1px solid #AFC5FF;
-            display: flex;
-            align-items: center;
-            gap: 10px;
             background: linear-gradient(195deg, #EAF0FF, #DDE6FF, #F1EDFF);
-            position: relative;
-        }
-
-        .chat-input {
-            flex: 1;
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            gap: 8px;
         }
-
+        .chat-input {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
         .chat-input input {
             flex: 1;
-            padding: 10px 15px;
-            border-radius: 20px;
-            border: 1px solid #E2E2E2;
-            font-family: Poppins;
-            font-size: 14px;
+            padding: 12px 18px;
+            border-radius: 24px;
+            border: 1.5px solid #E2E2E2;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            transition: border 0.2s, box-shadow 0.2s;
             outline: none;
         }
-
         .chat-input input:focus {
             border-color: #2351CB;
-            box-shadow: 0 0 15px #4789F34A;
+            box-shadow: 0 0 12px #4789F34A;
         }
-
         .chat-input button {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border: none;
             border-radius: 50%;
-            background: #024CFF;
+            background: var(--primary);
             color: #fff;
+            font-size: 23px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.2s, transform 0.15s;
         }
-
-        .chat-input button:hover {
-            background: #0035B0;
+        .chat-input button:hover,
+        .chat-input button:focus {
+            background: var(--primary-dark);
+            transform: scale(1.08);
         }
-
-        /* ===== INDICADOR DE DIGITAÇÃO ===== */
         .typing-indicator {
-            font-size: 14px;
+            font-size: 13px;
             color: #888;
-            display: none;
             margin-top: 5px;
+            display: none;
+            animation: typingBlink 1.5s infinite;
         }
-
-        /* ===== MODAIS ===== */
+        @keyframes typingBlink {
+            0%, 100% { opacity: 0.45; }
+            50% { opacity: 1; }
+        }
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            inset: 0;
+            background: rgba(0,0,0,0.5);
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
-
         .modal-content {
             background: #fff;
-            padding: 30px;
+            padding: 34px 20px;
             border-radius: 12px;
-            max-width: 500px;
-            width: 90%;
+            max-width: 410px;
+            width: 93%;
             text-align: center;
+            box-shadow: 0 6px 32px #0002;
         }
-
         .modal-content button {
             margin-top: 15px;
-            padding: 8px 15px;
+            padding: 9px 17px;
             border: none;
             border-radius: 5px;
-            background: #004AFF;
+            background: var(--primary);
             color: #fff;
             cursor: pointer;
+            font-size: 14px;
+            font-family: inherit;
+            transition: background 0.2s;
         }
-
-        .modal-content button:hover {
-            background: #0035B0;
+        .modal-content button:hover,
+        .modal-content button:focus {
+            background: var(--primary-dark);
         }
-
-        /* ===== NOTIFICAÇÃO DE DOAÇÃO ===== */
         #donationNotification {
             display: none;
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #333;
+            bottom: 24px;
+            right: 22px;
+            background: #232353;
             color: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            padding: 17px 19px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             z-index: 1000;
+            font-size: 15px;
+            animation: fadeInUp 0.7s;
         }
-
-        /* ===== ANIMAÇÕES ===== */
-        @keyframes typing {
-            0% { opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { opacity: 0.4; }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px);}
+            100% { opacity:1; transform: translateY(0);}
         }
-
-        .loading-animation {
-            display: none;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .loading-animation::after {
-            content: "•••";
-            animation: typing 1.5s infinite;
-            font-size: 24px;
-            letter-spacing: 3px;
-        }
-
         .empty-text {
             display: none;
             text-align: center;
@@ -242,76 +214,82 @@
             color: #555;
             margin: 20px 0;
         }
-
-        /* ===== MODO ESCURO ===== */
         body.dark-mode {
             background: #0E0E0E;
             color: #FFF;
         }
-
-        header.dark-mode {
+        .dark-mode header {
             background: #1E1E1E;
             border-bottom: 1px solid #333;
         }
-
-        /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 768px) {
-            header nav a {
-                font-size: 10px;
-                margin: 0 5px;
+            header {
+                flex-direction: column;
+                padding: 12px 8px;
+                gap: 8px;
             }
-            
+            header img {
+                width: 120px;
+                height: 40px;
+            }
+            header nav a {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
             .message {
-                max-width: 85%;
-                font-size: 13px;
+                max-width: 90%;
+                font-size: 14px;
+            }
+            .chat-container {
+                padding: 10px;
+            }
+            footer {
+                padding: 10px 8px;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="/805 Sem Título_20250124130134.png" alt="Logo">
-        <nav>
-            <a href="#" id="baixarLink">Abaixar .ngl</a>
+        <img src="/805 Sem Título_20250124130134.png" alt="Logo Niggle.AI">
+        <nav aria-label="Links principais">
+            <a href="#" id="baixarLink">Baixar .ngl</a>
             <a href="#" id="importarLink">Importar .ngl</a>
             <a href="#" id="novidadesLink">Novidades</a>
             <a href="#" id="configLink">Config.</a>
         </nav>
     </header>
 
-    <main class="chat-container" id="chatContainer">
+    <main class="chat-container" id="chatContainer" aria-live="polite">
         <div class="message received show">Olá, <strong>bem-vindo</strong> ao Niggle.AI!</div>
     </main>
 
     <footer>
-        <form class="chat-input" id="chatForm">
-            <input type="text" id="userMessage" placeholder="Digite sua mensagem..." maxlength="350" required>
-            <button type="submit">&#9658;</button>
+        <form class="chat-input" id="chatForm" autocomplete="off" aria-label="Envio de mensagem">
+            <input type="text" id="userMessage" placeholder="Digite sua mensagem..." maxlength="350" required aria-label="Mensagem">
+            <button type="submit" aria-label="Enviar mensagem">&#9658;</button>
         </form>
         <div class="typing-indicator" id="typingIndicator">Niggle está digitando...</div>
     </footer>
 
-    <!-- Modal de Configuração -->
-    <div id="configModal" class="modal">
+    <div id="configModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="configModalTitle">
         <div class="modal-content">
-            <h2>Configurações</h2>
+            <h2 id="configModalTitle">Configurações</h2>
             <button onclick="closeModal('configModal')">Fechar</button>
         </div>
     </div>
-
-    <!-- Modal de Novidades -->
-    <div id="newsModal" class="modal">
+    <div id="newsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
         <div class="modal-content">
-            <h2>Novidades</h2>
-            <p>- Agora você pode continuar seu chat importando o .ngl</p>
-            <p>- Melhoria no design</p>
-            <p>- Correções de bugs</p>
-            <p>- Compatibilidade móvel</p>
+            <h2 id="newsModalTitle">Novidades</h2>
+            <ul style="text-align:left; margin: 0 auto; max-width: 290px;">
+                <li>Agora você pode continuar seu chat importando o .ngl</li>
+                <li>Melhoria no design</li>
+                <li>Correções de bugs</li>
+                <li>Compatibilidade móvel</li>
+            </ul>
             <button onclick="closeModal('newsModal')">Fechar</button>
         </div>
     </div>
-
-    <!-- Notificação de doação -->
     <div id="donationNotification">
         <p>Você gostou de usar meu projeto? Poderia me ajudar fazendo uma doação?</p>
         <p><strong>Pix:</strong> matheusnunesdevzn@gmail.com</p>
@@ -324,62 +302,54 @@
         const userMessageInput = document.getElementById('userMessage');
         const typingIndicator = document.getElementById('typingIndicator');
 
-        // Form submit
         chatForm.addEventListener('submit', e => {
             e.preventDefault();
             const msg = userMessageInput.value.trim();
             if (!msg) return;
-            
+
             appendMessage(msg, 'sent');
             userMessageInput.value = '';
             showTyping();
-            
+
             setTimeout(() => {
                 hideTyping();
                 appendMessage(`Resposta do Niggle para: ${msg}`, 'received');
-            }, 1000 + Math.random() * 1500);
+            }, 900 + Math.random() * 1200);
         });
 
         function appendMessage(text, type) {
             const div = document.createElement('div');
-            div.classList.add('message', type, 'show');
+            div.className = `message ${type}`;
             div.innerHTML = text.replace(/\n/g, '<br>');
             chatContainer.appendChild(div);
+            setTimeout(() => div.classList.add('show'), 60);
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
-        // Typing indicator
         function showTyping() {
             typingIndicator.style.display = 'block';
         }
-
         function hideTyping() {
             typingIndicator.style.display = 'none';
         }
 
-        // Modais
-        document.getElementById('configLink').onclick = () => {
+        document.getElementById('configLink').onclick = e => {
+            e.preventDefault();
             document.getElementById('configModal').style.display = 'flex';
         };
-
-        document.getElementById('novidadesLink').onclick = () => {
+        document.getElementById('novidadesLink').onclick = e => {
+            e.preventDefault();
             document.getElementById('newsModal').style.display = 'flex';
         };
-
         function closeModal(id) {
             document.getElementById(id).style.display = 'none';
         }
-
-        // Notificação de doação
         setTimeout(() => {
             document.getElementById('donationNotification').style.display = 'block';
-        }, 30000); // Mostrar após 30 segundos
-
+        }, 25000);
         function closeNotification() {
             document.getElementById('donationNotification').style.display = 'none';
         }
-
-        // Fechar modal ao clicar fora
         window.addEventListener('click', (e) => {
             if (e.target.classList.contains('modal')) {
                 e.target.style.display = 'none';

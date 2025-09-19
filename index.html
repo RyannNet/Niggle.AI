@@ -9,27 +9,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@200;400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Reset e box-sizing */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         :root {
             --primary: #004AFF;
             --primary-dark: #0035B0;
             --secondary: #8A2BE2;
             --light: #F0F4FF;
             --dark: #1A1A2E;
-            --success: #00CC88;
             --ai-bubble: #E6EEFF;
             --user-bubble: var(--primary);
-            --ai-text: var(--dark);
-            --user-text: white;
             --gradient-start: #EFFFED;
             --gradient-mid: #E0DCFF;
             --gradient-end: #E6EEFF;
             --warning: #FF4D4D;
         }
 
-        /* Body */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
@@ -40,9 +39,8 @@
             overflow: hidden;
         }
 
-        /* Header */
         header {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
             padding: 12px 20px;
             display: flex;
@@ -100,11 +98,6 @@
             color: var(--primary);
         }
 
-        header nav a i {
-            font-size: 0.9rem;
-        }
-
-        /* Chat container */
         .chat-container {
             flex: 1;
             padding: 20px;
@@ -115,7 +108,6 @@
             background: rgba(255, 255, 255, 0.5);
         }
 
-        /* Mensagens */
         .message {
             max-width: 80%;
             padding: 12px 18px;
@@ -128,7 +120,6 @@
             font-size: 14px;
             display: flex;
             gap: 10px;
-            position: relative;
         }
 
         .message.show {
@@ -136,17 +127,16 @@
             transform: translateY(0);
         }
 
-        /* Recebida / enviada */
         .message.received {
             background: var(--ai-bubble);
-            color: var(--ai-text);
+            color: var(--dark);
             align-self: flex-start;
             border-top-left-radius: 5px;
         }
 
         .message.sent {
             background: var(--user-bubble);
-            color: var(--user-text);
+            color: white;
             align-self: flex-end;
             border-top-right-radius: 5px;
             flex-direction: row-reverse;
@@ -189,14 +179,13 @@
             text-align: left;
         }
 
-        /* Footer / input */
         footer {
             padding: 15px 20px;
             border-top: 1px solid rgba(175, 197, 255, 0.5);
             display: flex;
             align-items: center;
             gap: 10px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
             z-index: 10;
         }
@@ -265,7 +254,6 @@
             background: rgba(0, 74, 255, 0.2);
         }
 
-        /* Typing indicator */
         .typing-indicator {
             font-size: 14px;
             color: #888;
@@ -305,7 +293,6 @@
             50% { transform: translateY(-5px); }
         }
 
-        /* Modais */
         .modal {
             display: none;
             position: fixed;
@@ -408,7 +395,6 @@
             background: rgba(0, 0, 0, 0.15);
         }
 
-        /* Notificação de doação */
         .donation-notification {
             display: none;
             position: fixed;
@@ -441,7 +427,6 @@
             background: #ff3333;
         }
 
-        /* Aviso de palavras proibidas */
         .warning-overlay {
             display: none;
             position: fixed;
@@ -469,7 +454,6 @@
             margin-bottom: 15px;
         }
 
-        /* Responsividade */
         @media (max-width: 768px) {
             header {
                 padding: 10px 15px;
@@ -501,18 +485,6 @@
             }
         }
 
-        /* Animações extras */
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 74, 255, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 74, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 74, 255, 0); }
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        /* Scrollbar personalizado */
         .chat-container::-webkit-scrollbar {
             width: 6px;
         }
@@ -567,7 +539,6 @@
         </form>
     </footer>
 
-    <!-- Typing indicator -->
     <div class="typing-indicator" id="typingIndicator">
         <span>Niggle está digitando</span>
         <div class="typing-animation">
@@ -577,7 +548,6 @@
         </div>
     </div>
 
-    <!-- Modal de Configuração -->
     <div id="settingsModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('settingsModal')"><i class="fas fa-times"></i></button>
@@ -596,7 +566,6 @@
         </div>
     </div>
 
-    <!-- Modal de Novidades -->
     <div id="newsModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('newsModal')"><i class="fas fa-times"></i></button>
@@ -615,7 +584,6 @@
         </div>
     </div>
 
-    <!-- Modal de Exportação -->
     <div id="exportModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('exportModal')"><i class="fas fa-times"></i></button>
@@ -628,7 +596,6 @@
         </div>
     </div>
 
-    <!-- Modal de Importação -->
     <div id="importModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('importModal')"><i class="fas fa-times"></i></button>
@@ -642,14 +609,12 @@
         </div>
     </div>
 
-    <!-- Notificação de doação -->
     <div id="donationNotification" class="donation-notification">
         <p>Você gostou de usar meu projeto? Poderia me ajudar fazendo uma doação?</p>
         <p><strong>Pix:</strong> matheusnunesdevzn@gmail.com</p>
         <button onclick="closeNotification()">Fechar</button>
     </div>
 
-    <!-- Aviso de palavras proibidas -->
     <div id="warningOverlay" class="warning-overlay">
         <div class="warning-content">
             <h2><i class="fas fa-exclamation-triangle"></i> Aviso</h2>
@@ -658,7 +623,6 @@
         </div>
     </div>
 
-    <!-- Áudio para notificações -->
     <audio id="notificationSound" preload="auto">
         <source src="https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3" type="audio/mpeg">
     </audio>

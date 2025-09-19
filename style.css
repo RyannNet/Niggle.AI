@@ -1,229 +1,322 @@
+/* ===== RESET E BASE ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== VARIÁVEIS E FONTE ===== */
+:root {
+  --primary: #004AFF;
+  --primary-dark: #0035B0;
+  --secondary: #8A2BE2;
+  --light: #F0F4FF;
+  --dark: #1A1A2E;
+  --bubble-ai: #E6EEFF;
+  --bubble-user: var(--primary);
+  --header-link: #777777;
+  --header-link-hover: #FF0084;
+  --border-radius: 12px;
+  --transition: 0.3s;
+  --modal-bg: rgba(255,255,255,.85);
+  --modal-outline: rgba(0,0,0,.18);
+  --modal-shadow: 0 7px 24px #0001;
+  --overlay-bg: rgba(0,0,0,0.7);
+  --font-main: 'Lexend Giga', 'Poppins', 'Host Grotesk', sans-serif;
+}
+
+/* ===== BODY & GENERAL ===== */
+body {
+  background: #fff;
+  color: #222;
+  font-family: var(--font-main);
+  font-size: 14px;
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* ===== HEADER ===== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 25px;
+  background: var(--light);
+  border-bottom: 1px solid var(--primary);
+  box-shadow: 0 1px 8px #004aff18;
+}
+header nav {
+  display: flex;
+  gap: 20px;
+}
+header nav a {
+  color: var(--header-link);
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 13px;
+  border-radius: 5px;
+  padding: 6px 12px;
+  transition: color var(--transition), background var(--transition);
+  font-family: 'Host Grotesk', var(--font-main);
+}
+header nav a:hover,
+header nav a:focus {
+  color: var(--header-link-hover);
+  background: var(--bubble-ai);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== MESSAGES ===== */
 .message {
-  width: 230px;
-  padding: 10px;
-  border-radius: 10px;
-  font-size: px;
-  max-height: 100%;
-  line-height: 1.0;
-  font-family: Lexend Giga, sans serif;
+  max-width: 70vw;
+  min-width: 110px;
+  padding: 12px 15px;
+  border-radius: var(--border-radius);
+  font-size: 15px;
+  line-height: 1.5;
+  font-family: var(--font-main);
   opacity: 0;
-  transition: opacity 1s ease-in-out;
+  transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.4s;
+  word-break: break-word;
+  box-shadow: 0 2px 8px #0001;
+  margin: 8px 0;
+  position: relative;
 }
-
 .message.received {
-  margin: 10px;
-  color: #FFF;
+  background: var(--bubble-ai);
+  color: #222;
+  align-self: flex-start;
+  margin-left: 10px;
 }
-
+.message.sent {
+  background: var(--primary);
+  color: #fff;
+  align-self: flex-end;
+  margin-right: 10px;
+}
 .message.show {
   opacity: 1;
+  transform: translateY(0);
 }
 
+/* ===== FOOTER & INPUT ===== */
 footer {
   background: #FFF;
-  padding: 10px;
+  padding: 12px 18px;
+  border-top: 1px solid #AFC5FF;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-
+.chat-input {
+  display: flex;
+  gap: 10px;
+}
+.chat-input input {
+  flex: 1;
+  padding: 11px 18px;
+  border-radius: 24px;
+  border: 1px solid #E2E2E2;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: border var(--transition), box-shadow var(--transition);
+}
+.chat-input input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px #4789F34A;
+}
 .chat-input button {
   width: 50px;
   height: 50px;
   border: none;
-  background: #024CFF;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #024CFF 60%, #0035B0 100%);
   color: #FFF;
-  background: #0035B0;
   border: 2px solid #004DFF;
-  transition: 0.5s;
+  font-size: 22px;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
   -webkit-tap-highlight-color: transparent;
 }
+.chat-input button:hover,
+.chat-input button:focus {
+  background: var(--primary-dark);
+  transform: scale(1.08);
+}
 
-/* Animação de bolinhas */
+/* ===== TYPING INDICATOR ===== */
 .typing-indicator {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   letter-spacing: 2px;
-  color: #555555;
-  position: center;
+  color: #555;
+  text-align: center;
+  margin-top: 15px;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
+.typing-indicator::after {
+  content: "•••";
+  animation: typing 1.2s infinite;
+  margin-left: 6px;
+  font-size: 22px;
+}
 @keyframes typing {
-  0% {
-    content: "•••";
-    transition: 0.5s;
-    color: #B6B6B6;
-  }
-  25% {
-    content: "°••";
-    transition: 0.5s;
-    color: #535353;
-  }
-  50% {
-    content: "•°•";
-    transition: 0.5s;
-    color: #A2A2A2;
-  }
-  75% {
-    content: "••°";
-    transition: 0.5s;
-    color: #A19C9C;
-  }
-  100% {
-    content: "•••";
-    transition: 0.5s;
-    color: #DFDFDF;
-  }
+  0%   { opacity: 0.4; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.4; }
 }
 
-.typing-indicator {
-  margin-top: 20px;
-  color: #555555;
-}
-
-/* Modal */
+/* ===== MODAL ===== */
 .modal {
-  display: none; /* Modal escondido por padrão */
+  display: none;
   position: fixed;
-  z-index: 1000; /* Certifique-se de que o modal está acima de outros elementos */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro com transparência */
-  backdrop-filter: blur(5px); /* Desfoque no fundo */
+  z-index: 1000;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(5px);
+  align-items: center;
+  justify-content: center;
 }
-
-/* Conteúdo do modal */
 .modal-content {
-  background-color: rgba(255, 255, 255, 0.72);
-  outline: 1px solid rgba(0, 0, 0, 0.28);
-  margin: 10% auto;
-  padding: 70px;
-  border-radius: 8px;
-  width: 90%;
-  height: 50%;
-  animation: fadeIn 0.5s ease-in-out;
+  background: var(--modal-bg);
+  outline: 1px solid var(--modal-outline);
+  margin: 0 auto;
+  padding: 40px 20px;
+  border-radius: var(--border-radius);
+  width: 95%;
+  max-width: 400px;
+  box-shadow: var(--modal-shadow);
+  animation: fadeIn 0.5s cubic-bezier(.4,0,.2,1);
 }
-
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; transform: translateY(30px);}
+  to   { opacity: 1; transform: translateY(0);}
 }
-
-/* Estilos do Header */
-header nav a {
-  color: #777777;
-  font-weight: bold;
-  text-decoration: none;
-  font-family: 'Host Grotesk', sans-serif;
-  font-size: 12px;
-  gap: 15px;
-}
-
-header nav a:hover {
-  color: #FF0084;
-  transition: color 0.5s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-
 .close {
-  font-size: 60px;
-  position: left;
-  margin-left: -60px;
-  margin-top: 90px;
+  font-size: 36px;
+  position: absolute;
+  top: 18px;
+  right: 24px;
   color: #FF0000;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-/* Estilos gerais */
-body {
-  background-color: white; /* Fundo claro por padrão */
-  color: black; /* Texto escuro por padrão */
-  transition: all 0.3s ease; /* Transição suave para o modo escuro */
-}
-
-input, textarea, select, button {
-  background-color: white; /* Campos de entrada com fundo claro */
-  color: black; /* Texto escuro nos campos de entrada */
-  border: 1px solid #ccc; /* Bordas claras */
-  transition: all 0.3s ease; /* Transição suave para o modo escuro */
-}
-
-a {
-  color: #007bff; /* Cor do link padrão */
-  transition: color 0.3s ease; /* Transição suave para a cor do link */
-}
-
-/* Estilo do modo escuro */
-.dark-mode {
-  background-color: #121212; /* Fundo escuro para o site */
-  color: white; /* Texto branco */
-}
-
-.dark-mode input,
-.dark-mode textarea,
-.dark-mode select,
-.dark-mode button {
-  background-color: #151515; /* Fundo escuro para campos de entrada */
-  color: white; /* Texto branco nos campos de entrada */
-  border: 1px solid #444; /* Bordas mais suaves */
-}
-
-.dark-mode a {
-  color: #bb86fc; /* Cor de links no modo escuro */
-}
-
-/* Outros elementos específicos do modo escuro */
-.dark-mode .message {
-  background-color: #333; /* Fundo escuro para mensagens */
-  color: white; /* Texto branco nas mensagens */
-}
-
-.dark-mode .loading-animation {
-  border-color: #bb86fc; /* Ajuste a animação de carregamento */
-}
-
-/* Estilos do overlay */
+/* ===== OVERLAY ===== */
 .overlay {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: var(--overlay-bg);
   justify-content: center;
   align-items: center;
   color: white;
 }
-
 .overlay-content {
   background: #333;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 22px;
+  border-radius: var(--border-radius);
   text-align: center;
 }
 
+/* ===== LISTS & BUTTONS ===== */
 #peopleList {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
-
 #peopleList li {
   margin: 10px 0;
   font-size: 18px;
 }
-
 button {
   background: #444;
   color: white;
-  padding: 10px;
+  padding: 11px 18px;
   border: none;
-  border-radius: 5px;
+  border-radius: 7px;
   cursor: pointer;
+  font-size: 15px;
+  margin: 0 4px;
+  transition: background var(--transition);
+}
+button:hover,
+button:focus {
+  background: #666;
 }
 
-button:hover {
-  background: #666;
+/* ===== LINKS ===== */
+a {
+  color: #007bff;
+  transition: color var(--transition);
+}
+a:hover,
+a:focus {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* ===== DARK MODE ===== */
+body.dark-mode {
+  background: #121212;
+  color: #fff;
+}
+.dark-mode header {
+  background: #1E1E1E;
+  border-bottom: 1px solid #333;
+}
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select,
+.dark-mode button {
+  background: #181818;
+  color: #fff;
+  border: 1px solid #444;
+}
+.dark-mode a {
+  color: #bb86fc;
+}
+.dark-mode .message {
+  background: #232353;
+  color: #fff;
+}
+.dark-mode .chat-input button {
+  background: linear-gradient(135deg, #1929A6 60%, #131B4D 100%);
+  border: 2px solid #bb86fc;
+}
+.dark-mode .modal-content,
+.dark-mode .overlay-content {
+  background: #232323;
+  color: #fff;
+  outline: 1px solid #444;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 700px) {
+  header {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 8px;
+  }
+  header nav {
+    gap: 10px;
+  }
+  .message {
+    max-width: 95vw;
+    font-size: 14px;
+    padding: 9px 10px;
+  }
+  .modal-content {
+    padding: 25px 8px;
+    max-width: 97vw;
+  }
 }

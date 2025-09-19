@@ -3,81 +3,72 @@
 
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <title>Chat Interface</title>
+  
+  <!-- Fontes do Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Text:ital@0;1&family=Flow+Circular&family=Geist+Mono:wght@100..900&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Jaro:opsz@6..72&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lexend+Giga:wght@100..900&family=Manrope:wght@200..800&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Smooch+Sans:wght@900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Ysabeau+SC:wght@1..1000&display=swap" rel="stylesheet">
-<body>
-  <!-- Seu conteúdo HTML aqui -->
-<audio id="notificationSound" src="/g.mp3" preload="auto"></audio>
-
-</body>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Text:ital@0;1&family=Flow+Circular&family=Geist+Mono:wght@100..900&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Jaro:opsz@6..72&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lexend+Giga:wght@100..900&family=Manrope:wght@200..800&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Smooch+Sans:wght@900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Ysabeau+SC:wght@1..1000&display=swap" rel="stylesheet">
 </head>
 
 <body>
-<header>
-  <img src="/805 Sem Título_20250124130134.png" alt="Logo">
-  <nav>
-    <a href="#" id="baixarLink">Abaixar .ngl</a> |
-    <a href="#" id="importarLink">Importar .ngl</a> |
-    <a href="#">Novidades</a> |
-    <a href="#" id="openConfigModal">Config.</a>
-  </nav>
-  
-</header>
-  <div id="donationNotification" style="display: none; position: fixed; bottom: 20px; right: 20px; background: #333; color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); z-index: 1000;">
-  <p>Você gostou de usar meu projeto? Poderia me ajudar fazendo uma doação?</p>
-  <p><strong>Pix:</strong> matheusnunesdevzn@gmail.com</p>
-  <button onclick="closeNotification()" style="background: #ff4d4d; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">Fechar</button>
-  <button onclick="donateNow()" style="background: #4caf50; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; margin-left: 10px;">Doar</button>
-</div>
-</header>
+  <!-- Som de notificação -->
+  <audio id="notificationSound" src="/g.mp3" preload="auto"></audio>
 
-<!-- Modal de Configuração -->
-<div id="configModal" class="modal">
-  <div class="modal-content">
-    <span id="closeModal" class="close">&times;</span>
-    <h2>Configurações</h2>
-    <div class="config-options">
-      <button class="config-btn" id="installNGL">Instalar .ngl</button>
-      <button class="config-btn" id="formatOfficial">Formato oficial</button>
-      <button class="config-btn" id="openSavedChats">Abrir Chats Salvos</button>
-      <button class="config-btn" id="baixarNGL">Abaixar</button>
-      <button class="config-btn" id="importNGL">Importar .ngl</button>
+  <!-- Cabeçalho -->
+  <header>
+    <img src="/805 Sem Título_20250124130134.png" alt="Logo">
+    <nav>
+      <a href="#" id="baixarLink">Abaixar .ngl</a> |
+      <a href="#" id="importarLink">Importar .ngl</a> |
+      <a href="#">Novidades</a> |
+      <a href="#" id="openConfigModal">Config.</a>
+    </nav>
+  </header>
+
+  <!-- Notificação de doação -->
+  <div id="donationNotification" style="display: none; position: fixed; bottom: 20px; right: 20px; background: #333; color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); z-index: 1000;">
+    <p>Você gostou de usar meu projeto? Poderia me ajudar fazendo uma doação?</p>
+    <p><strong>Pix:</strong> matheusnunesdevzn@gmail.com</p>
+    <button onclick="closeNotification()" style="background: #ff4d4d; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Fechar</button>
+  </div>
+
+  <!-- Modal de Configurações -->
+  <div id="configModal" class="overlay">
+    <div class="overlay-content">
+      <h2>Configurações</h2>
+      <input type="text" placeholder="Novo nome">
+      <select>
+        <option>Escolha a cor</option>
+        <option>Azul</option>
+        <option>Verde</option>
+      </select>
+      <button>Salvar</button>
+      <button id="closeConfigModal">Fechar</button>
     </div>
   </div>
-</div>
-<!-- Modal de Novidades -->
-<div id="newsModal" class="modal">
-  <div class="modal-content">
-    <span id="closeNewsModal" class="close">&times;</span>
-    <h1>Novidades</h1>
-    <ul id="newsList">
-      <li>Agora você pode dar continuidades ao seu chat, apenas imporfando seu chat ngl.</li>
-      <li>Melhoria na adaptação do design!</li>
-      <li>Correções de bugs no sistema de configuração.</li>
-      <li>Compatibilidade ampliada para dispositivos móveis</li>
-    </ul>
+
+  <!-- Container de chat -->
+  <div class="chat-container">
+    <div class="message received">
+      <p>Mensagem recebida</p>
+    </div>
+    <div class="message sent">
+      <p>Mensagem enviada</p>
+    </div>
   </div>
-</div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="typing-indicator">Digitando...</div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
-<main class="chat-container">
-  <div class="message received">Olá, **bem-vindo** ao _niggle.AI_!</div>
-  <div class="message sent">Quero um sistema de input **bonito**!</div>
-</main>
-  <div class="message sent">Quero um sistema de input bem bonito!</div>
-  <div class="loading-animation"></div>
-  <div class="empty-text" style="display: none;">Nossa, mas que vazio</div>
-</main>
-<footer>
-  <form class="chat-input" id="chatForm">
-    <input type="text" id="userMessage" placeholder="Digite sua mensagem..." maxlength="350" required>
-    <button type="submit"><img src="/send_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png" height="20px" width="20px"></button>
-  </form>
-  <div id="typingIndicator" class="typing-indicator">Niggle está digitando...</div>
-</footer>
+
+</html>
  
 </body>
 

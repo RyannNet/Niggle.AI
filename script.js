@@ -1,82 +1,76 @@
 window.onload = function () {
   // Elementos principais
   const chatForm = document.getElementById("chatForm");
-  const userMessageInput = document.getElementById("userMessage"); // Use o id correto do input!
+  const userMessageInput = document.getElementById("userMessage");
   const chatContainer = document.querySelector(".chat-container");
-  const loadingAnimation = document.querySelector(".loading-animation");
-  const emptyText = document.querySelector(".empty-text");
   const warningOverlay = document.getElementById("warning");
+
+  // Elementos de animação (criados só pelo JS)
+  let loadingAnimation = document.querySelector(".loading-animation");
+  let emptyText = document.querySelector(".empty-text");
+
+  // Criar animação de loading se não existe
+  if (!loadingAnimation) {
+    loadingAnimation = document.createElement("div");
+    loadingAnimation.className = "loading-animation";
+    chatContainer.appendChild(loadingAnimation);
+  }
+  // Criar texto vazio se não existe
+  if (!emptyText) {
+    emptyText = document.createElement("div");
+    emptyText.className = "empty-text";
+    emptyText.textContent = "Nenhuma mensagem por aqui...";
+    chatContainer.appendChild(emptyText);
+  }
 
   // Lista de palavras proibidas
   const proibidas = ['xingamento1', 'xingamento2', 'palavraproibida', 'sexo', 'palavraimpropria'];
   let avisoCount = 0;
 
-  // Função para exibir mensagem (com animação)
+  // Função para exibir mensagem no chat
   function displayMessage(message, isUser) {
     const messageDiv = document.createElement("div");
     messageDiv.classList.add("message", isUser ? "sent" : "received");
     messageDiv.textContent = message;
     chatContainer.appendChild(messageDiv);
     setTimeout(() => messageDiv.classList.add("show"), 100);
-
-    // Rolar até a última mensagem
     chatContainer.scrollTop = chatContainer.scrollHeight;
   }
 
-  // Função para mostrar animação de loading e texto vazio
+  // Função para mostrar animação de loading e depois texto vazio
   function showLoadingThenEmpty() {
-    // Remove mensagens existentes
-    const messages = document.querySelectorAll(".message");
-    messages.forEach((msg) => (msg.style.display = "none"));
+    // Esconde todas as mensagens
+    document.querySelectorAll(".message").forEach(msg => msg.style.display = "none");
     loadingAnimation.style.display = "block";
-
-    // Após 4s, mostra texto vazio
+    emptyText.style.display = "none";
     setTimeout(() => {
       loadingAnimation.style.display = "none";
       emptyText.style.display = "block";
     }, 4000);
   }
 
-  // Função para mostrar overlay de aviso
+  // Função para mostrar aviso de banimento
   function showWarning() {
+    if (!warningOverlay) return;
     warningOverlay.style.display = "flex";
     setTimeout(() => {
       warningOverlay.style.display = "none";
     }, 5000);
   }
 
-  // Função para chamar API (simulada/cohere)
+  // Função para simular resposta da IA
   async function getCohereResponse(message) {
-    // API real (descomente para usar de verdade)
-    /*
-    const response = await fetch('https://api.cohere.ai/v1/chat', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer EV6r9RNnTpiSXaGTeoGpSRmvsYnyx5QPQuOPWGNt',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        message: message,
-        model: 'command-r-08-2024',
-        preamble: `Seu preâmbulo aqui...`,
-        chatHistory: [{ role: "USER", message: message }]
-      })
-    });
-    const data = await response.json();
-    return data.text || "Desculpe, não consegui entender.";
-    */
-    // Simulação para testes:
-    return new Promise((resolve) => {
+    // Aqui vai sua chamada real da API, se quiser.
+    return new Promise(resolve => {
       setTimeout(() => {
         resolve("Cara, você num tem nem certez aqse ela qer te dar n");
       }, 1500);
     });
   }
 
-  // Evento principal do formulário
+  // Evento de envio do chat
   chatForm.addEventListener("submit", async function (e) {
     e.preventDefault();
-
     const userMessage = userMessageInput.value.trim();
     if (!userMessage) return;
 
@@ -99,19 +93,18 @@ window.onload = function () {
 
     // Exibe animação de loading
     loadingAnimation.style.display = "block";
+    emptyText.style.display = "none";
 
     try {
-      // Obtem resposta do bot
       const botResponse = await getCohereResponse(userMessage);
       displayMessage(botResponse, false);
     } catch (error) {
       displayMessage("Desculpe, houve um erro. Tente novamente.", false);
     }
 
-    // Esconde animação
     loadingAnimation.style.display = "none";
   });
 
-  // Se quiser mostrar loading+empty após X tempo (exemplo: ao abrir página)
+  // Opcional: Exibir animação/loading+empty ao abrir a página
   // showLoadingThenEmpty();
 };

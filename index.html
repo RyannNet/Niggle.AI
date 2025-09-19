@@ -1,34 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Chat Interface</title>
-  
-  <!-- Fontes do Google -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Text:ital@0;1&family=Flow+Circular&family=Geist+Mono:wght@100..900&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Jaro:opsz@6..72&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lexend+Giga:wght@100..900&family=Manrope:wght@200..800&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Smooch+Sans:wght@900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Ysabeau+SC:wght@1..1000&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Niggle AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@200;400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* Reset e box-sizing */
+* {margin:0;padding:0;box-sizing:border-box;}
+
+/* Body */
+body {
+  font-family: 'Lexend Giga', sans-serif;
+  background: linear-gradient(195deg,#EFFFED,#E0DCFF,#E6EEFF,#FFEFFD);
+  color:#000;
+  display:flex;
+  flex-direction:column;
+  height:100vh;
+}
+
+/* Header */
+header {
+  background: linear-gradient(195deg,#EFFFED,#E0DCFF);
+  padding:10px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0px 0px 30px #138CFF66;
+}
+
+header img {height:50px;}
+header nav a {
+  color:#000;
+  text-decoration:none;
+  margin-left:15px;
+  font-weight:600;
+}
+header nav a:hover {color:#004AFF;}
+
+/* Chat container */
+.chat-container {
+  flex:1;
+  padding:15px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* Mensagens */
+.message {
+  max-width:70%;
+  padding:12px 15px;
+  border-radius:12px;
+  line-height:1.5;
+  opacity:0;
+  transition:opacity 0.5s ease-in-out;
+  word-wrap:break-word;
+  font-size:14px;
+}
+
+/* Recebida / enviada */
+.message.received {
+  background:#e0e8ff;
+  color:#000;
+  align-self:flex-start;
+}
+.message.sent {
+  background:#004AFF;
+  color:#fff;
+  align-self:flex-end;
+}
+
+/* Mostrar mensagem */
+.message.show {opacity:1;}
+
+/* Footer / input */
+footer {
+  padding:10px 20px;
+  border-top:1px solid #AFC5FF;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background: linear-gradient(195deg,#EAF0FF,#DDE6FF,#F1EDFF);
+}
+
+.chat-input {
+  flex:1;
+  display:flex;
+  gap:10px;
+}
+
+.chat-input input {
+  flex:1;
+  padding:10px 15px;
+  border-radius:20px;
+  border:1px solid #E2E2E2;
+  font-family:Poppins;
+  font-size:14px;
+  outline:none;
+}
+
+.chat-input button {
+  width:50px;
+  height:50px;
+  border:none;
+  border-radius:50%;
+  background:#024CFF;
+  color:#fff;
+  cursor:pointer;
+}
+.chat-input button:hover {background:#0035B0;}
+
+/* Typing indicator */
+.typing-indicator {
+  font-size:14px;
+  color:#888;
+  display:none;
+  margin-top:5px;
+}
+
+/* Modais */
+.modal {display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;}
+.modal-content {
+  background:#fff;
+  padding:30px;
+  border-radius:12px;
+  max-width:500px;
+  width:90%;
+  text-align:center;
+}
+.modal-content button {
+  margin-top:15px;
+  padding:8px 15px;
+  border:none;
+  border-radius:5px;
+  background:#004AFF;
+  color:#fff;
+  cursor:pointer;
+}
+.modal-content button:hover {background:#0035B0;}
+</style>
 </head>
-
 <body>
-  <!-- Som de notificação -->
-  <audio id="notificationSound" src="/g.mp3" preload="auto"></audio>
 
-  <!-- Cabeçalho -->
-  <header>
-    <img src="/805 Sem Título_20250124130134.png" alt="Logo">
-    <nav>
-      <a href="#" id="baixarLink">Abaixar .ngl</a> |
-      <a href="#" id="importarLink">Importar .ngl</a> |
-      <a href="#">Novidades</a> |
-      <a href="#" id="openConfigModal">Config.</a>
-    </nav>
-  </header>
+<header>
+  <img src="/805 Sem Título_20250124130134.png" alt="Logo">
+  <nav>
+    <a href="#" id="baixarLink">Abaixar .ngl</a>
+    <a href="#" id="importarLink">Importar .ngl</a>
+    <a href="#" id="novidadesLink">Novidades</a>
+    <a href="#" id="configLink">Config.</a>
+  </nav>
+</header>
 
-  <!-- Notificação de doação -->
+<main class="chat-container" id="chatContainer">
+  <div class="message received show">Olá, <strong>bem-vindo</strong> ao Niggle.AI!</div>
+</main>
+
+<footer>
+  <form class="chat-input" id="chatForm">
+    <input type="text" id="userMessage" placeholder="Digite sua mensagem..." maxlength="350" required>
+    <button type="submit">&#9658;</button>
+  </form>
+</footer>
+
+<!-- Modal de Configuração -->
+<div id="configModal" class="modal">
+  <div class="modal-content">
+    <h2>Configurações</h2>
+    <button onclick="closeModal('configModal')">Fechar</button>
+  </div>
+</div>
+
+<!-- Modal de Novidades -->
+<div id="newsModal" class="modal">
+  <div class="modal-content">
+    <h2>Novidades</h2>
+    <p>- Agora você pode continuar seu chat importando o .ngl</p>
+    <p>- Melhoria no design</p>
+    <p>- Correções de bugs</p>
+    <p>- Compatibilidade móvel</p>
+    <button onclick="closeModal('newsModal')">Fechar</button>
+  </div>
+</div>
+
+<script>
+const chatContainer = document.getElementById('chatContainer');
+const chatForm = document.getElementById('chatForm');
+const userMessageInput = document.getElementById('userMessage');
+const typingIndicator = document.createElement('div');
+typingIndicator.classList.add('typing-indicator');
+typingIndicator.textContent = 'Niggle está digitando...';
+chatContainer.appendChild(typingIndicator);
+
+// Form submit
+chatForm.addEventListener('submit', e=>{
+  e.preventDefault();
+  const msg = userMessageInput.value.trim();
+  if(!msg) return;
+  appendMessage(msg,'sent');
+  userMessageInput.value='';
+  showTyping();
+  setTimeout(()=>{
+    hideTyping();
+    appendMessage(`- Resposta do Niggle para: ${msg}`,'received');
+  },1000+Math.random()*1500);
+});
+
+function appendMessage(text,type){
+  const div=document.createElement('div');
+  div.classList.add('message',type,'show');
+  div.innerHTML=text.replace(/\n/g,'<br>'); // suporta quebras
+  chatContainer.appendChild(div);
+  chatContainer.scrollTop=chatContainer.scrollHeight;
+}
+
+// Typing indicator
+function showTyping(){typingIndicator.style.display='block';}
+function hideTyping(){typingIndicator.style.display='none';}
+
+// Modais
+document.getElementById('configLink').onclick=()=>{document.getElementById('configModal').style.display='flex';}
+document.getElementById('novidadesLink').onclick=()=>{document.getElementById('newsModal').style.display='flex';}
+function closeModal(id){document.getElementById(id).style.display='none';}
+</script>
+
+</body>
+</html>
+  
+<!-- Notificação de doação -->
   <div id="donationNotification" style="display: none; position: fixed; bottom: 20px; right: 20px; background: #333; color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); z-index: 1000;">
     <p>Você gostou de usar meu projeto? Poderia me ajudar fazendo uma doação?</p>
     <p><strong>Pix:</strong> matheusnunesdevzn@gmail.com</p>

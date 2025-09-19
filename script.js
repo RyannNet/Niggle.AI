@@ -52,7 +52,7 @@ window.onload = function () {
     const response = await fetch('https://api.cohere.ai/v1/chat', {
       method: 'POST',
       headers: {
-        'Authorization': 'Bearer pREbPYxvCDNEV4PDVEneXTWreFjhZVUNaHX5yShX',
+        'Authorization': 'Bearer EV6r9RNnTpiSXaGTeoGpSRmvsYnyx5QPQuOPWGNt',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({

@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Niggle AI</title>
+    <title>Niggle AI - CSS Corrigido</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@200;400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ===== RESET E BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ===== VARIÁVEIS ===== */
         :root {
             --primary: #004AFF;
             --primary-dark: #0035B0;
@@ -23,276 +30,141 @@
             --warning: #FF4D4D;
         }
 
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-        }
-
+        /* ===== ESTILOS GERAIS ===== */
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
-            color: var(--dark);
+            font-family: 'Lexend Giga', sans-serif;
+            background: linear-gradient(195deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end), #FFEFFD);
+            color: #000000;
             display: flex;
             flex-direction: column;
+            font-size: 12px;
             height: 100vh;
-            overflow: hidden;
         }
 
+        /* ===== HEADER ===== */
         header {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 12px 20px;
+            background: linear-gradient(195deg, var(--gradient-start), var(--gradient-mid));
+            border-bottom: 1px solid #00A8FF;
+            padding: 10px;
+            box-shadow: 0px 0px 30px #138CFF66;
+            text-align: center;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 20px rgba(0, 74, 255, 0.15);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.7);
-            z-index: 10;
-        }
-
-        .logo-container {
-            display: flex;
             align-items: center;
-            gap: 10px;
         }
 
-        .logo-container img {
-            height: 40px;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-container img:hover {
-            transform: rotate(5deg);
-        }
-
-        .logo-text {
-            font-family: 'Lexend Giga', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        header nav {
-            display: flex;
-            gap: 15px;
+        header img {
+            width: 150px;
+            height: 50px;
         }
 
         header nav a {
-            color: var(--dark);
+            color: #959595;
+            font-weight: bold;
             text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            padding: 6px 12px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            font-size: 12px;
+            margin: 0 10px;
         }
 
         header nav a:hover {
-            background: rgba(0, 74, 255, 0.1);
-            color: var(--primary);
+            color: #0065FF;
+            transition: color 0.5s ease;
         }
 
+        /* ===== CONTAINER DE CHAT ===== */
         .chat-container {
             flex: 1;
-            padding: 20px;
+            padding: 15px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            background: rgba(255, 255, 255, 0.5);
+            gap: 10px;
         }
 
+        /* ===== MENSAGENS ===== */
         .message {
-            max-width: 80%;
-            padding: 12px 18px;
-            border-radius: 18px;
+            max-width: 70%;
+            padding: 12px 15px;
+            border-radius: 12px;
             line-height: 1.5;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
+            transition: opacity 0.5s ease-in-out;
             word-wrap: break-word;
             font-size: 14px;
-            display: flex;
-            gap: 10px;
+        }
+
+        .message.received {
+            background: #e0e8ff;
+            color: #000;
+            align-self: flex-start;
+        }
+
+        .message.sent {
+            background: #004AFF;
+            color: #fff;
+            align-self: flex-end;
         }
 
         .message.show {
             opacity: 1;
-            transform: translateY(0);
         }
 
-        .message.received {
-            background: var(--ai-bubble);
-            color: var(--dark);
-            align-self: flex-start;
-            border-top-left-radius: 5px;
-        }
-
-        .message.sent {
-            background: var(--user-bubble);
-            color: white;
-            align-self: flex-end;
-            border-top-right-radius: 5px;
-            flex-direction: row-reverse;
-        }
-
-        .avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .received .avatar {
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            color: white;
-        }
-
-        .sent .avatar {
-            background: rgba(255, 255, 255, 0.3);
-            color: white;
-        }
-
-        .message-content {
-            flex: 1;
-        }
-
-        .message-time {
-            font-size: 0.7rem;
-            opacity: 0.7;
-            margin-top: 5px;
-            text-align: right;
-        }
-
-        .sent .message-time {
-            text-align: left;
-        }
-
+        /* ===== RODAPÉ E INPUT ===== */
         footer {
-            padding: 15px 20px;
-            border-top: 1px solid rgba(175, 197, 255, 0.5);
+            padding: 10px 20px;
+            border-top: 1px solid #AFC5FF;
             display: flex;
             align-items: center;
             gap: 10px;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 10;
+            background: linear-gradient(195deg, #EAF0FF, #DDE6FF, #F1EDFF);
+            position: relative;
         }
 
         .chat-input {
             flex: 1;
             display: flex;
             gap: 10px;
-            align-items: center;
-            background: white;
-            border-radius: 25px;
-            padding: 0 5px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .chat-input input {
             flex: 1;
-            padding: 12px 15px;
-            border: none;
-            font-family: 'Poppins', sans-serif;
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: 1px solid #E2E2E2;
+            font-family: Poppins;
             font-size: 14px;
             outline: none;
-            background: transparent;
+        }
+
+        .chat-input input:focus {
+            border-color: #2351CB;
+            box-shadow: 0 0 15px #4789F34A;
         }
 
         .chat-input button {
-            width: 44px;
-            height: 44px;
+            width: 50px;
+            height: 50px;
             border: none;
             border-radius: 50%;
-            background: var(--primary);
-            color: white;
+            background: #024CFF;
+            color: #fff;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
+            transition: background 0.3s;
         }
 
         .chat-input button:hover {
-            background: var(--primary-dark);
-            transform: scale(1.05);
+            background: #0035B0;
         }
 
-        .actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .actions button {
-            width: 44px;
-            height: 44px;
-            border: none;
-            border-radius: 50%;
-            background: rgba(0, 74, 255, 0.1);
-            color: var(--primary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .actions button:hover {
-            background: rgba(0, 74, 255, 0.2);
-        }
-
+        /* ===== INDICADOR DE DIGITAÇÃO ===== */
         .typing-indicator {
             font-size: 14px;
             color: #888;
             display: none;
             margin-top: 5px;
-            align-self: flex-start;
-            background: var(--ai-bubble);
-            padding: 12px 18px;
-            border-radius: 18px;
-            border-top-left-radius: 5px;
         }
 
-        .typing-animation {
-            display: inline-flex;
-            gap: 3px;
-        }
-
-        .typing-animation span {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--primary);
-            opacity: 0.6;
-            animation: typing 1s infinite ease-in-out;
-        }
-
-        .typing-animation span:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-
-        .typing-animation span:nth-child(3) {
-            animation-delay: 0.2s;
-        }
-
-        @keyframes typing {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
+        /* ===== MODAIS ===== */
         .modal {
             display: none;
             position: fixed;
@@ -303,99 +175,34 @@
             background: rgba(0, 0, 0, 0.6);
             justify-content: center;
             align-items: center;
-            z-index: 100;
-            backdrop-filter: blur(5px);
+            z-index: 1000;
         }
 
         .modal-content {
-            background: white;
+            background: #fff;
             padding: 30px;
-            border-radius: 16px;
+            border-radius: 12px;
             max-width: 500px;
             width: 90%;
-            text-align: left;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            position: relative;
-            animation: modalFadeIn 0.3s ease;
+            text-align: center;
         }
 
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
+        .modal-content button {
+            margin-top: 15px;
+            padding: 8px 15px;
             border: none;
-            font-size: 1.2rem;
+            border-radius: 5px;
+            background: #004AFF;
+            color: #fff;
             cursor: pointer;
-            color: #888;
-            transition: color 0.2s ease;
         }
 
-        .modal-close:hover {
-            color: var(--dark);
+        .modal-content button:hover {
+            background: #0035B0;
         }
 
-        .modal-content h2 {
-            margin-bottom: 15px;
-            color: var(--primary);
-            font-family: 'Lexend Giga', sans-serif;
-        }
-
-        .modal-content p {
-            margin-bottom: 10px;
-            line-height: 1.5;
-        }
-
-        .modal-content ul {
-            margin: 15px 0;
-            padding-left: 20px;
-        }
-
-        .modal-content li {
-            margin-bottom: 8px;
-        }
-
-        .modal-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .modal-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 20px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .modal-btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .modal-btn-primary:hover {
-            background: var(--primary-dark);
-        }
-
-        .modal-btn-secondary {
-            background: rgba(0, 0, 0, 0.1);
-            color: var(--dark);
-        }
-
-        .modal-btn-secondary:hover {
-            background: rgba(0, 0, 0, 0.15);
-        }
-
-        .donation-notification {
+        /* ===== NOTIFICAÇÃO DE DOAÇÃO ===== */
+        #donationNotification {
             display: none;
             position: fixed;
             bottom: 20px;
@@ -406,408 +213,173 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             z-index: 1000;
-            max-width: 300px;
         }
 
-        .donation-notification p {
-            margin-bottom: 10px;
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes typing {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
         }
 
-        .donation-notification button {
-            background: var(--warning);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .donation-notification button:hover {
-            background: #ff3333;
-        }
-
-        .warning-overlay {
+        .loading-animation {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .warning-content {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
             text-align: center;
-            max-width: 400px;
-            width: 90%;
+            margin: 20px 0;
         }
 
-        .warning-content h2 {
-            color: var(--warning);
-            margin-bottom: 15px;
+        .loading-animation::after {
+            content: "•••";
+            animation: typing 1.5s infinite;
+            font-size: 24px;
+            letter-spacing: 3px;
         }
 
+        .empty-text {
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+            margin: 20px 0;
+        }
+
+        /* ===== MODO ESCURO ===== */
+        body.dark-mode {
+            background: #0E0E0E;
+            color: #FFF;
+        }
+
+        header.dark-mode {
+            background: #1E1E1E;
+            border-bottom: 1px solid #333;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 768px) {
-            header {
-                padding: 10px 15px;
-            }
-            
-            .logo-text {
-                font-size: 1.2rem;
-            }
-            
-            header nav a span {
-                display: none;
-            }
-            
             header nav a {
-                padding: 8px;
-                font-size: 1.1rem;
+                font-size: 10px;
+                margin: 0 5px;
             }
             
             .message {
-                max-width: 90%;
+                max-width: 85%;
+                font-size: 13px;
             }
-            
-            footer {
-                padding: 10px 15px;
-            }
-            
-            .actions {
-                display: none;
-            }
-        }
-
-        .chat-container::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .chat-container::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 10px;
-        }
-
-        .chat-container::-webkit-scrollbar-thumb {
-            background: rgba(0, 74, 255, 0.3);
-            border-radius: 10px;
-        }
-
-        .chat-container::-webkit-scrollbar-thumb:hover {
-            background: rgba(0, 74, 255, 0.5);
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo-container">
-            <img src="/805 Sem Título_20250124130134.png" alt="Logo Niggle AI">
-            <div class="logo-text">Niggle AI</div>
-        </div>
+        <img src="/805 Sem Título_20250124130134.png" alt="Logo">
         <nav>
-            <a href="#" id="exportLink"><i class="fas fa-download"></i> <span>Exportar .ngl</span></a>
-            <a href="#" id="importLink"><i class="fas fa-upload"></i> <span>Importar .ngl</span></a>
-            <a href="#" id="newsLink"><i class="fas fa-star"></i> <span>Novidades</span></a>
-            <a href="#" id="settingsLink"><i class="fas fa-cog"></i> <span>Configurações</span></a>
+            <a href="#" id="baixarLink">Abaixar .ngl</a>
+            <a href="#" id="importarLink">Importar .ngl</a>
+            <a href="#" id="novidadesLink">Novidades</a>
+            <a href="#" id="configLink">Config.</a>
         </nav>
     </header>
 
     <main class="chat-container" id="chatContainer">
-        <div class="message received show">
-            <div class="avatar">N</div>
-            <div class="message-content">
-                Olá, <strong>bem-vindo</strong> ao Niggle AI! Como posso ajudar você hoje?
-                <div class="message-time">Agora</div>
-            </div>
-        </div>
+        <div class="message received show">Olá, <strong>bem-vindo</strong> ao Niggle.AI!</div>
     </main>
 
     <footer>
-        <div class="actions">
-            <button title="Anexar arquivo"><i class="fas fa-paperclip"></i></button>
-            <button title="Limpar conversa" id="clearChatBtn"><i class="fas fa-broom"></i></button>
-        </div>
         <form class="chat-input" id="chatForm">
             <input type="text" id="userMessage" placeholder="Digite sua mensagem..." maxlength="350" required>
-            <button type="submit" title="Enviar mensagem"><i class="fas fa-paper-plane"></i></button>
+            <button type="submit">&#9658;</button>
         </form>
+        <div class="typing-indicator" id="typingIndicator">Niggle está digitando...</div>
     </footer>
 
-    <div class="typing-indicator" id="typingIndicator">
-        <span>Niggle está digitando</span>
-        <div class="typing-animation">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-
-    <div id="settingsModal" class="modal">
+    <!-- Modal de Configuração -->
+    <div id="configModal" class="modal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('settingsModal')"><i class="fas fa-times"></i></button>
             <h2>Configurações</h2>
-            <p>Personalize sua experiência com o Niggle AI:</p>
-            <ul>
-                <li>Tema claro/escuro</li>
-                <li>Notificações por som</li>
-                <li>Histórico de conversas</li>
-                <li>Privacidade e dados</li>
-            </ul>
-            <div class="modal-actions">
-                <button class="modal-btn modal-btn-secondary" onclick="closeModal('settingsModal')">Cancelar</button>
-                <button class="modal-btn modal-btn-primary" onclick="saveSettings()">Salvar</button>
-            </div>
+            <button onclick="closeModal('configModal')">Fechar</button>
         </div>
     </div>
 
+    <!-- Modal de Novidades -->
     <div id="newsModal" class="modal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('newsModal')"><i class="fas fa-times"></i></button>
             <h2>Novidades</h2>
-            <p>Confira as últimas atualizações do Niggle AI:</p>
-            <ul>
-                <li>Agora você pode continuar seu chat importando o .ngl</li>
-                <li>Melhoria no design e experiência do usuário</li>
-                <li>Correções de bugs e melhor desempenho</li>
-                <li>Compatibilidade móvel aprimorada</li>
-                <li>Novas opções de personalização</li>
-            </ul>
-            <div class="modal-actions">
-                <button class="modal-btn modal-btn-primary" onclick="closeModal('newsModal')">Fechar</button>
-            </div>
+            <p>- Agora você pode continuar seu chat importando o .ngl</p>
+            <p>- Melhoria no design</p>
+            <p>- Correções de bugs</p>
+            <p>- Compatibilidade móvel</p>
+            <button onclick="closeModal('newsModal')">Fechar</button>
         </div>
     </div>
 
-    <div id="exportModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('exportModal')"><i class="fas fa-times"></i></button>
-            <h2>Exportar Conversa</h2>
-            <p>Escolha o formato para exportar sua conversa:</p>
-            <div class="modal-actions">
-                <button class="modal-btn modal-btn-secondary" onclick="exportChat('txt')">Texto (.txt)</button>
-                <button class="modal-btn modal-btn-primary" onclick="exportChat('ngl')">Niggle (.ngl)</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="importModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('importModal')"><i class="fas fa-times"></i></button>
-            <h2>Importar Conversa</h2>
-            <p>Selecione o arquivo .ngl para importar:</p>
-            <input type="file" id="importFile" accept=".ngl" style="margin: 15px 0; width: 100%;">
-            <div class="modal-actions">
-                <button class="modal-btn modal-btn-secondary" onclick="closeModal('importModal')">Cancelar</button>
-                <button class="modal-btn modal-btn-primary" onclick="importChat()">Importar</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="donationNotification" class="donation-notification">
+    <!-- Notificação de doação -->
+    <div id="donationNotification">
         <p>Você gostou de usar meu projeto? Poderia me ajudar fazendo uma doação?</p>
         <p><strong>Pix:</strong> matheusnunesdevzn@gmail.com</p>
         <button onclick="closeNotification()">Fechar</button>
     </div>
 
-    <div id="warningOverlay" class="warning-overlay">
-        <div class="warning-content">
-            <h2><i class="fas fa-exclamation-triangle"></i> Aviso</h2>
-            <p>Por favor, evite usar linguagem inadequada.</p>
-            <button class="modal-btn modal-btn-primary" onclick="closeWarning()">Entendi</button>
-        </div>
-    </div>
-
-    <audio id="notificationSound" preload="auto">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3" type="audio/mpeg">
-    </audio>
-
     <script>
-        // Elementos DOM
         const chatContainer = document.getElementById('chatContainer');
         const chatForm = document.getElementById('chatForm');
         const userMessageInput = document.getElementById('userMessage');
         const typingIndicator = document.getElementById('typingIndicator');
-        const clearChatBtn = document.getElementById('clearChatBtn');
-        const notificationSound = document.getElementById('notificationSound');
-        
-        // Variáveis de estado
-        let warningCount = 0;
-        const forbiddenWords = ['xingamento1', 'xingamento2', 'palavraproibida', 'sexo', 'palavraimpropria'];
-        
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', () => {
-            userMessageInput.focus();
-            
-            // Mostrar notificação de doação após 5 minutos
-            setTimeout(() => {
-                document.getElementById('donationNotification').style.display = 'block';
-            }, 5 * 60 * 1000);
-        });
-        
-        // Event Listeners
-        chatForm.addEventListener('submit', handleFormSubmit);
-        clearChatBtn.addEventListener('click', clearChat);
-        
-        document.getElementById('exportLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('exportModal').style.display = 'flex';
-        });
-        
-        document.getElementById('importLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('importModal').style.display = 'flex';
-        });
-        
-        document.getElementById('newsLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('newsModal').style.display = 'flex';
-        });
-        
-        document.getElementById('settingsLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('settingsModal').style.display = 'flex';
-        });
-        
-        // Funções
-        function handleFormSubmit(e) {
+
+        // Form submit
+        chatForm.addEventListener('submit', e => {
             e.preventDefault();
             const msg = userMessageInput.value.trim();
             if (!msg) return;
             
-            // Verificar palavras proibidas
-            if (containsForbiddenWords(msg)) {
-                showWarning();
-                return;
-            }
-            
             appendMessage(msg, 'sent');
-            playNotificationSound();
             userMessageInput.value = '';
             showTyping();
             
-            // Simular resposta após um tempo aleatório
             setTimeout(() => {
                 hideTyping();
-                const responses = [
-                    `Entendi sua pergunta sobre "${msg}". Posso ajudar com mais alguma coisa?`,
-                    `Interessante! Sobre "${msg}", posso te fornecer mais informações.`,
-                    `Obrigado por compartilhar! Em relação a "${msg}", aqui está minha resposta.`,
-                    `Compreendo. Sobre "${msg}", posso te auxiliar de várias formas.`
-                ];
-                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-                appendMessage(randomResponse, 'received');
-                playNotificationSound();
+                appendMessage(`Resposta do Niggle para: ${msg}`, 'received');
             }, 1000 + Math.random() * 1500);
-        }
-        
+        });
+
         function appendMessage(text, type) {
             const div = document.createElement('div');
-            div.classList.add('message', type);
-            
-            const avatar = type === 'received' ? 'N' : 'V';
-            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            
-            div.innerHTML = `
-                <div class="avatar">${avatar}</div>
-                <div class="message-content">
-                    ${text.replace(/\n/g, '<br>')}
-                    <div class="message-time">${time}</div>
-                </div>
-            `;
-            
+            div.classList.add('message', type, 'show');
+            div.innerHTML = text.replace(/\n/g, '<br>');
             chatContainer.appendChild(div);
-            
-            // Animação de entrada
-            setTimeout(() => {
-                div.classList.add('show');
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-            }, 10);
-        }
-        
-        function showTyping() {
-            typingIndicator.style.display = 'block';
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
-        
+
+        // Typing indicator
+        function showTyping() {
+            typingIndicator.style.display = 'block';
+        }
+
         function hideTyping() {
             typingIndicator.style.display = 'none';
         }
-        
-        function clearChat() {
-            if (confirm('Tem certeza que deseja limpar a conversa?')) {
-                // Manter apenas a primeira mensagem de boas-vindas
-                const welcomeMsg = chatContainer.querySelector('.message');
-                chatContainer.innerHTML = '';
-                chatContainer.appendChild(welcomeMsg);
-            }
-        }
-        
+
+        // Modais
+        document.getElementById('configLink').onclick = () => {
+            document.getElementById('configModal').style.display = 'flex';
+        };
+
+        document.getElementById('novidadesLink').onclick = () => {
+            document.getElementById('newsModal').style.display = 'flex';
+        };
+
         function closeModal(id) {
             document.getElementById(id).style.display = 'none';
         }
-        
+
+        // Notificação de doação
+        setTimeout(() => {
+            document.getElementById('donationNotification').style.display = 'block';
+        }, 30000); // Mostrar após 30 segundos
+
         function closeNotification() {
             document.getElementById('donationNotification').style.display = 'none';
         }
-        
-        function closeWarning() {
-            document.getElementById('warningOverlay').style.display = 'none';
-        }
-        
-        function playNotificationSound() {
-            if (notificationSound) {
-                notificationSound.currentTime = 0;
-                notificationSound.play().catch(e => console.log("Não foi possível reproduzir o som: ", e));
-            }
-        }
-        
-        function containsForbiddenWords(message) {
-            const lowerMessage = message.toLowerCase();
-            return forbiddenWords.some(word => lowerMessage.includes(word));
-        }
-        
-        function showWarning() {
-            warningCount++;
-            document.getElementById('warningOverlay').style.display = 'flex';
-            
-            if (warningCount >= 5) {
-                alert('Você foi banido por 5 dias devido a comportamento impróprio.');
-                chatForm.removeEventListener('submit', handleFormSubmit);
-            }
-        }
-        
-        // Funções de exportação/importação (simuladas)
-        function exportChat(format) {
-            closeModal('exportModal');
-            const filename = `niggle-chat-${new Date().toISOString().slice(0, 10)}.${format}`;
-            alert(`Conversa exportada como ${filename}`);
-            // Aqui viria a lógica real de exportação
-        }
-        
-        function importChat() {
-            const fileInput = document.getElementById('importFile');
-            if (fileInput.files.length > 0) {
-                closeModal('importModal');
-                alert('Conversa importada com sucesso!');
-                // Aqui viria a lógica real de importação
-            } else {
-                alert('Por favor, selecione um arquivo para importar.');
-            }
-        }
-        
-        // Configurações (simulado)
-        function saveSettings() {
-            closeModal('settingsModal');
-            alert('Configurações salvas com sucesso!');
-        }
-        
-        // Fechar modal clicando fora dele
+
+        // Fechar modal ao clicar fora
         window.addEventListener('click', (e) => {
             if (e.target.classList.contains('modal')) {
                 e.target.style.display = 'none';

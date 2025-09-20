@@ -1,10 +1,13 @@
+
+// server.js
 import express from "express";
-import Cohere from "cohere-ai";
+import pkg from "cohere-ai";
+const { CohereClient } = pkg;
 
 const app = express();
 app.use(express.json());
 
-const cohere = new Cohere(process.env.COHERE_API_KEY);
+const cohere = new CohereClient(process.env.COHERE_API_KEY);
 
 app.get("/", (req, res) => {
   res.send("API tá de pé 🚀 Niggle.AI");
@@ -21,7 +24,10 @@ app.post("/api/chat", async (req, res) => {
       ],
       temperature: 0.7
     });
-    res.json({ reply: response.output[0].content[0].text });
+
+    // nova forma de pegar a resposta
+    const reply = response.output[0].content[0].text;
+    res.json({ reply });
   } catch (err) {
     console.error("ERRO COHERE:", err);
     res.status(500).json({ error: "Erro ao conectar com a API Cohere" });

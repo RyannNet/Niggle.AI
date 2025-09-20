@@ -1,23 +1,20 @@
+// server.js
 import express from "express";
 import { CohereClientV2 } from "cohere-ai";
 
 const app = express();
 app.use(express.json());
 
-// conecta no cohere usando a env do Render
 const cohere = new CohereClientV2({
   token: process.env.COHERE_API_KEY
 });
 
-// rota de teste
 app.get("/", (req, res) => {
   res.send("API tá de pé 🚀 Niggle.AI");
 });
 
-// rota do chat
 app.post("/api/chat", async (req, res) => {
   const { message } = req.body;
-
   try {
     const response = await cohere.chat({
       model: "command-a-03-2025",
@@ -28,7 +25,6 @@ app.post("/api/chat", async (req, res) => {
       temperature: 0.7
     });
 
-    // resposta certinha
     res.json({ reply: response.message.content[0].text });
   } catch (err) {
     console.error("ERRO COHERE:", err);
@@ -36,10 +32,8 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-// serve os arquivos do front (public/)
 app.use(express.static("public"));
 
-// inicia server
 app.listen(process.env.PORT || 3000, () => {
   console.log("✅ Server rodando na Render");
 });

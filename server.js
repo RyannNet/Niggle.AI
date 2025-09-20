@@ -2,12 +2,12 @@
 import express from "express";
 import pkg from "cohere-ai";
 
-const { CohereClientV2 } = pkg;
+const { CohereClient } = pkg;
 
 const app = express();
 app.use(express.json());
 
-const cohere = new CohereClientV2({
+const cohere = new CohereClient({
   token: process.env.COHERE_API_KEY
 });
 
@@ -19,12 +19,11 @@ app.post("/api/chat", async (req, res) => {
   const { message } = req.body;
   try {
     const response = await cohere.chat({
-      model: "command-a-03-2025",
+      model: "command-r-plus", // modelo real, não "command-a-03-2025"
       messages: [
         { role: "system", content: "Você é uma IA criada pra zoar com o usuário" },
         { role: "user", content: message }
       ],
-      temperature: 0.7
     });
 
     res.json({ reply: response.message.content[0].text });

@@ -8,7 +8,7 @@ app.use(express.json());
 
 // Pega a API KEY da variável de ambiente do Render
 const cohere = new CohereClientV2({
-  token: process.env.COHERE_API_KEY
+  apiKey: process.env.COHERE_API_KEY
 });
 
 app.post("/api/chat", async (req, res) => {

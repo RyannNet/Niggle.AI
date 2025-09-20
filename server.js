@@ -1,19 +1,17 @@
-// server.js
 import express from "express";
-import pkg from "cohere-ai";
-const { CohereClientV2 } = pkg;
+import coherePkg from "cohere-ai";
+
+const { CohereClientV2 } = coherePkg; // pega do default import
 
 const app = express();
 app.use(express.json());
 
-// Pega a API KEY da variável de ambiente do Render
 const cohere = new CohereClientV2({
   apiKey: process.env.COHERE_API_KEY
 });
 
 app.post("/api/chat", async (req, res) => {
   const { message } = req.body;
-  
   try {
     const response = await cohere.chat({
       model: "command-a-03-2025",
@@ -23,14 +21,12 @@ app.post("/api/chat", async (req, res) => {
       ],
       temperature: 0.3
     });
-    
     res.json({ reply: response.message.content[0].text });
   } catch (err) {
     res.status(500).json({ error: "Erro ao conectar com a API" });
   }
 });
 
-// Serve o front-end se quiser
 app.use(express.static("public"));
 
 app.listen(process.env.PORT || 3000, () => console.log("Server rodando na Render"));

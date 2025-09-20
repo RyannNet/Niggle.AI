@@ -3,372 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Overlay de Manutenção</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .maintenance-container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
-            padding: 50px 40px;
-            text-align: center;
-            max-width: 800px;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-            animation: fadeIn 0.8s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .maintenance-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #4361ee, #7209b7, #3a0ca3);
-            border-radius: 10px 10px 0 0;
-        }
-        
-        .icon-container {
-            margin-bottom: 30px;
-        }
-        
-        .main-icon {
-            font-size: 80px;
-            color: #4361ee;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        h1 {
-            color: #3a0ca3;
-            font-size: 36px;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        
-        p {
-            color: #4a5568;
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-        
-        .progress-container {
-            background: #e2e8f0;
-            border-radius: 10px;
-            height: 12px;
-            margin: 40px 0;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            background: linear-gradient(90deg, #4361ee, #7209b7);
-            height: 100%;
-            width: 75%;
-            border-radius: 10px;
-            animation: progressAnimation 1.5s ease-in-out;
-        }
-        
-        @keyframes progressAnimation {
-            0% { width: 0%; }
-            100% { width: 75%; }
-        }
-        
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin: 40px 0;
-        }
-        
-        .feature {
-            flex: 1;
-            min-width: 200px;
-            padding: 20px;
-            background: #f8fafc;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
-        }
-        
-        .feature:hover {
-            transform: translateY(-5px);
-        }
-        
-        .feature i {
-            font-size: 36px;
-            color: #4361ee;
-            margin-bottom: 15px;
-        }
-        
-        .feature h3 {
-            color: #3a0ca3;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        
-        .feature p {
-            font-size: 14px;
-            margin-bottom: 0;
-        }
-        
-        .countdown {
-            background: #f1f5f9;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 30px 0;
-        }
-        
-        .countdown h3 {
-            color: #3a0ca3;
-            margin-bottom: 15px;
-        }
-        
-        .timer {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .time-unit {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            min-width: 80px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .time-value {
-            font-size: 32px;
-            font-weight: 700;
-            color: #4361ee;
-        }
-        
-        .time-label {
-            font-size: 14px;
-            color: #718096;
-            text-transform: uppercase;
-        }
-        
-        .social-links {
-            margin-top: 40px;
-        }
-        
-        .social-links h3 {
-            margin-bottom: 20px;
-            color: #3a0ca3;
-        }
-        
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        
-        .social-icons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: #4361ee;
-            color: white;
-            border-radius: 50%;
-            font-size: 20px;
-            transition: all 0.3s;
-        }
-        
-        .social-icons a:hover {
-            background: #3a0ca3;
-            transform: translateY(-3px);
-        }
-        
-        .contact-info {
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 1px solid #e2e8f0;
-        }
-        
-        .contact-info p {
-            margin-bottom: 5px;
-        }
-        
-        .contact-info a {
-            color: #4361ee;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .contact-info a:hover {
-            color: #3a0ca3;
-            text-decoration: underline;
-        }
-        
-        @media (max-width: 768px) {
-            .maintenance-container {
-                padding: 30px 20px;
-            }
-            
-            h1 {
-                font-size: 28px;
-            }
-            
-            p {
-                font-size: 16px;
-            }
-            
-            .features {
-                flex-direction: column;
-            }
-            
-            .timer {
-                flex-wrap: wrap;
-            }
-            
-            .time-unit {
-                min-width: 70px;
-            }
-        }
-    </style>
+    <title>Niggle AI - CSS Corrigido</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@200;400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="server.js"></script>
+    <script src="script (1).js"></script>
 </head>
-<body>
-    <div class="maintenance-container">
-        <div class="icon-container">
-            <i class="fas fa-tools main-icon"></i>
-        </div>
-        
-        <h1>Estamos em Manutenção</h1>
-        <p>Estamos trabalhando para melhorar sua experiência. Voltaremos em breve com novidades e melhorias!</p>
-        
-        <div class="progress-container">
-            <div class="progress-bar"></div>
-        </div>
-        
-        <div class="features">
-            <div class="feature">
-                <i class="fas fa-bolt"></i>
-                <h3>Performance Aprimorada</h3>
-                <p>Estamos otimizando o sistema para uma experiência mais rápida e eficiente.</p>
-            </div>
-            
-            <div class="feature">
-                <i class="fas fa-paint-brush"></i>
-                <h3>Novo Design</h3>
-                <p>Preparamos uma interface renovada e mais intuitiva para você.</p>
-            </div>
-            
-            <div class="feature">
-                <i class="fas fa-lock"></i>
-                <h3>Mais Segurança</h3>
-                <p>Implementamos novas medidas de segurança para proteger seus dados.</p>
-            </div>
-        </div>
-        
-        <div class="countdown">
-            <h3>Voltamos em:</h3>
-            <div class="timer">
-                <div class="time-unit">
-                    <div class="time-value" id="days">02</div>
-                    <div class="time-label">Dias</div>
-                </div>
-                
-                <div class="time-unit">
-                    <div class="time-value" id="hours">12</div>
-                    <div class="time-label">Horas</div>
-                </div>
-                
-                <div class="time-unit">
-                    <div class="time-value" id="minutes">45</div>
-                    <div class="time-label">Minutos</div>
-                </div>
-                
-                <div class="time-unit">
-                    <div class="time-value" id="seconds">30</div>
-                    <div class="time-label">Segundos</div>
-                </div>
-            </div>
-        </div>
-        
+<script>
     
+    
+    
+</script>
+<body>
+    
+    <header>
+        <img src="/2073 Sem Título_20250919184018.png" alt="Logo Niggle.AI">
+        <nav aria-label="Links principais">
+            <a href="#" id="baixarLink">Baixar .ngl</a>
+            <a href="#" id="importarLink">Importar .ngl</a>
+            <a href="#" id="novidadesLink">Novidades</a>
+            <a href="#" id="configLink">Config.</a>
+        </nav>
+    </header>
+
+    <main class="chat-container" id="chatContainer" aria-live="polite">
+        <div class="message received show">Olá, <strong>bem-vindo</strong> ao Niggle.AI!</div>
+    </main>
+
+    <footer>
+        <div class="textareabtn">
+        <form class="chat-input" id="chatForm" autocomplete="off" aria-label="Envio de mensagem">
+            <textarea type="text" id="userMessage" placeholder="Digite sua mensagem..." maxlength="90000" required aria-label="Mensagem"></textarea>
+            <button type="submit" aria-label="Enviar mensagem"><img class="send_ic" src="/1887 Sem Título_20250919194748.png"></button>
+            </div>
+        </form>
+        <div class="typing-indicator" id="typingIndicator">Niggle está digitando...</div>
+    </footer>
+
+    <div id="configModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="configModalTitle">
+        <div class="modal-content">
+            <h2 id="configModalTitle">Configurações</h2>
+            <button onclick="closeModal('configModal')">Fechar</button>
         </div>
-        
-        <div class="contact-info">
-            <p>Precisa de ajuda? Entre em contato conosco:</p>
-            <p>Email: <a href="mailto:matheusnunesdevzn@gmail.com">matheusnunesdevzn@gmail.com</a></p>
+    </div>
+    <div id="newsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
+        <div class="modal-content">
+            <h2 id="newsModalTitle">Novidades</h2>
+            <ul style="text-align:left; margin: 0 auto; max-width: 290px;">
+                <li>Agora você pode continuar seu chat importando o .ngl</li>
+                <li>Melhoria no design</li>
+                <li>Correções de bugs</li>
+                <li>Compatibilidade móvel</li>
+            </ul>
+            <button onclick="closeModal('newsModal')">Fechar</button>
         </div>
+    </div>
+    <div id="donationNotification">
+        <p>Você gostou de usar meu projeto? Poderia me ajudar fazendo uma doação?</p>
+        <p><strong>Pix:</strong> matheusnunesdevzn@gmail.com</p>
+        <button onclick="closeNotification()">Fechar</button>
     </div>
 
     <script>
-        // Contagem regressiva
-        function updateCountdown() {
-            const days = document.getElementById('days');
-            const hours = document.getElementById('hours');
-            const minutes = document.getElementById('minutes');
-            const seconds = document.getElementById('seconds');
-            
-            // Definindo a data-alvo (2 dias a partir de agora)
-            const targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() + 2);
-            targetDate.setHours(12, 0, 0, 0);
-            
-            const updateTimer = () => {
-                const now = new Date();
-                const difference = targetDate - now;
-                
-                if (difference <= 0) {
-                    days.textContent = '00';
-                    hours.textContent = '00';
-                    minutes.textContent = '00';
-                    seconds.textContent = '00';
-                    return;
-                }
-                
-                const d = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((difference % (1000 * 60)) / 1000);
-                
-                days.textContent = d.toString().padStart(2, '0');
-                hours.textContent = h.toString().padStart(2, '0');
-                minutes.textContent = m.toString().padStart(2, '0');
-                seconds.textContent = s.toString().padStart(2, '0');
-            };
-            
-            updateTimer();
-            setInterval(updateTimer, 1000);
-        }
+        const chatContainer = document.getElementById('chatContainer');
+        const chatForm = document.getElementById('chatForm');
+        const userMessageInput = document.getElementById('userMessage');
+        const typingIndicator = document.getElementById('typingIndicator');
+
         
-        document.addEventListener('DOMContentLoaded', updateCountdown);
+        function appendMessage(text, type) {
+            const div = document.createElement('div');
+            div.className = `message ${type}`;
+            div.innerHTML = text.replace(/\n/g, '<br>');
+            chatContainer.appendChild(div);
+            setTimeout(() => div.classList.add('show'), 60);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function showTyping() {
+            typingIndicator.style.display = 'block';
+        }
+        function hideTyping() {
+            typingIndicator.style.display = 'none';
+        }
+
+        document.getElementById('configLink').onclick = e => {
+            e.preventDefault();
+            document.getElementById('configModal').style.display = 'flex';
+        };
+        document.getElementById('novidadesLink').onclick = e => {
+            e.preventDefault();
+            document.getElementById('newsModal').style.display = 'flex';
+        };
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+        setTimeout(() => {
+            document.getElementById('donationNotification').style.display = 'block';
+        }, 25000);
+        function closeNotification() {
+            document.getElementById('donationNotification').style.display = 'none';
+        }
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>

@@ -1,29 +1,22 @@
 // server.js
 import express from "express";
 import pkg from "cohere-ai";
-import path from "path";
-import { fileURLToPath } from "url";
 
 const { CohereClientV2 } = pkg;
 const app = express();
-
 app.use(express.json());
 
-// Serve o front-end direto
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Logando pra ver se a chave veio
+console.log("COHERE_API_KEY:", process.env.COHERE_API_KEY ? "✅ setada" : "❌ não setada");
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+// API
+const cohere = new CohereClientV2({
+  token: process.env.COHERE_API_KEY
 });
-app.use(express.static(__dirname));
-
-// API do chat
-const cohere = new CohereClientV2({ token: process.env.COHERE_API_KEY });
 
 app.post("/api/chat", async (req, res) => {
   const { message } = req.body;
-  if(!message) return res.status(400).json({ error: "Mensagem vazia" });
+  console.log("Mensagem recebida:", message);
 
   try {
     const response = await cohere.chat({
@@ -35,12 +28,16 @@ app.post("/api/chat", async (req, res) => {
       temperature: 0.7
     });
 
+    console.log("Resposta bruta:", response);
     res.json({ reply: response.message.content[0].text });
   } catch (err) {
-    console.error(err);
+    console.error("ERRO NO CHAT >>>", err);
     res.status(500).json({ error: "Erro ao conectar com a API do Cohere" });
   }
 });
 
+// teste rápido: GET /
+app.get("/", (req, res) => res.send("API tá de pé 🚀"));
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server rodando na Render em porta ${PORT}`));
+app.listen(PORT, () => console.log(`Server rodando na porta ${PORT}`));

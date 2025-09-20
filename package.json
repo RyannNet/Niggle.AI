@@ -1,17 +1,17 @@
 {
-  "name": "niggle-ai-server",
+  "name": "niggle-ai",
   "version": "1.0.0",
-  "description": "Servidor do Niggle.AI rodando no Render com CohereClientV2",
+  "description": "Niggle AI chatbot",
   "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js"
   },
-  "engines": {
-    "node": ">=22.0.0"
-  },
   "dependencies": {
     "express": "^4.18.2",
-    "cohere-ai": "^3.0.0"
+    "cohere-ai": "^2.3.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }

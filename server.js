@@ -1,22 +1,22 @@
-// server.js
 import express from "express";
-import pkg from "cohere-ai";
+import { CohereClientV2 } from "cohere-ai";
 
-const { CohereClientV2 } = pkg;
 const app = express();
 app.use(express.json());
 
-// Logando pra ver se a chave veio
-console.log("COHERE_API_KEY:", process.env.COHERE_API_KEY ? "✅ setada" : "❌ não setada");
-
-// API
+// conecta no cohere usando a env do Render
 const cohere = new CohereClientV2({
   token: process.env.COHERE_API_KEY
 });
 
+// rota de teste
+app.get("/", (req, res) => {
+  res.send("API tá de pé 🚀 Niggle.AI");
+});
+
+// rota do chat
 app.post("/api/chat", async (req, res) => {
   const { message } = req.body;
-  console.log("Mensagem recebida:", message);
 
   try {
     const response = await cohere.chat({
@@ -28,16 +28,18 @@ app.post("/api/chat", async (req, res) => {
       temperature: 0.7
     });
 
-    console.log("Resposta bruta:", response);
+    // resposta certinha
     res.json({ reply: response.message.content[0].text });
   } catch (err) {
-    console.error("ERRO NO CHAT >>>", err);
-    res.status(500).json({ error: "Erro ao conectar com a API do Cohere" });
+    console.error("ERRO COHERE:", err);
+    res.status(500).json({ error: "Erro ao conectar com a API Cohere" });
   }
 });
 
-// teste rápido: GET /
-app.get("/", (req, res) => res.send("API tá de pé 🚀"));
+// serve os arquivos do front (public/)
+app.use(express.static("public"));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server rodando na porta ${PORT}`));
+// inicia server
+app.listen(process.env.PORT || 3000, () => {
+  console.log("✅ Server rodando na Render");
+});

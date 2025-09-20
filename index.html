@@ -8,8 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@200;400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="server.js"></script>
-    <script src="script (1).js"></script>
+    
 </head>
 <script>
     
@@ -66,51 +65,48 @@
         <button onclick="closeNotification()">Fechar</button>
     </div>
 
-    <script>
-        const chatContainer = document.getElementById('chatContainer');
-        const chatForm = document.getElementById('chatForm');
-        const userMessageInput = document.getElementById('userMessage');
-        const typingIndicator = document.getElementById('typingIndicator');
+  <script>
+const chatForm = document.getElementById('chatForm');
+const userMessageInput = document.getElementById('userMessage');
+const chatContainer = document.getElementById('chatContainer');
+const typingIndicator = document.getElementById('typingIndicator');
 
-        
-        function appendMessage(text, type) {
-            const div = document.createElement('div');
-            div.className = `message ${type}`;
-            div.innerHTML = text.replace(/\n/g, '<br>');
-            chatContainer.appendChild(div);
-            setTimeout(() => div.classList.add('show'), 60);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
+function appendMessage(text, type) {
+    const div = document.createElement('div');
+    div.className = `message ${type}`;
+    div.innerHTML = text.replace(/\n/g,'<br>');
+    chatContainer.appendChild(div);
+    setTimeout(()=>div.classList.add('show'), 60);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
 
-        function showTyping() {
-            typingIndicator.style.display = 'block';
-        }
-        function hideTyping() {
-            typingIndicator.style.display = 'none';
-        }
+function showTyping() { typingIndicator.style.display = 'block'; }
+function hideTyping() { typingIndicator.style.display = 'none'; }
 
-        document.getElementById('configLink').onclick = e => {
-            e.preventDefault();
-            document.getElementById('configModal').style.display = 'flex';
-        };
-        document.getElementById('novidadesLink').onclick = e => {
-            e.preventDefault();
-            document.getElementById('newsModal').style.display = 'flex';
-        };
-        function closeModal(id) {
-            document.getElementById(id).style.display = 'none';
-        }
-        setTimeout(() => {
-            document.getElementById('donationNotification').style.display = 'block';
-        }, 25000);
-        function closeNotification() {
-            document.getElementById('donationNotification').style.display = 'none';
-        }
-        window.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) {
-                e.target.style.display = 'none';
-            }
+chatForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const message = userMessageInput.value.trim();
+    if(!message) return;
+    appendMessage(message, 'sent');
+    userMessageInput.value='';
+    showTyping();
+
+    try {
+        const res = await fetch('/api/chat', {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({message})
         });
-    </script>
+        const data = await res.json();
+        hideTyping();
+        if(data.reply) appendMessage(data.reply, 'received');
+        else appendMessage('Ocorreu um erro no bot.', 'received');
+    } catch(err) {
+        hideTyping();
+        appendMessage('Erro de conexão com o servidor.', 'received');
+    }
+});
+</script>
+  
 </body>
 </html>

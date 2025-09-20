@@ -1,6 +1,7 @@
 // server.js
 import express from "express";
-import { CohereClientV2 } from "cohere-ai";
+import pkg from "cohere-ai";
+const { CohereClientV2 } = pkg;
 
 const app = express();
 app.use(express.json());

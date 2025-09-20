@@ -18,7 +18,7 @@ app.post("/api/chat", async (req, res) => {
       ],
       temperature: 0.7
     });
-    res.json({ reply: response.output_text });
+    res.json({ reply: response.output[0].content[0].text });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Erro ao conectar com a API" });

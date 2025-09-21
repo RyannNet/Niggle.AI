@@ -8,13 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@200;400;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    
 </head>
-<script>
-    
-    
-    
-</script>
 <body>
     
     <header>
@@ -36,8 +30,8 @@
         <form class="chat-input" id="chatForm" autocomplete="off" aria-label="Envio de mensagem">
             <textarea type="text" id="userMessage" placeholder="Digite sua mensagem..." maxlength="90000" required aria-label="Mensagem"></textarea>
             <button type="submit" aria-label="Enviar mensagem"><img class="send_ic" src="/1887 Sem Título_20250919194748.png"></button>
-            </div>
         </form>
+        </div>
         <div class="typing-indicator" id="typingIndicator">Niggle está digitando...</div>
     </footer>
 
@@ -47,6 +41,7 @@
             <button onclick="closeModal('configModal')">Fechar</button>
         </div>
     </div>
+
     <div id="newsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
         <div class="modal-content">
             <h2 id="newsModalTitle">Novidades</h2>
@@ -59,56 +54,24 @@
             <button onclick="closeModal('newsModal')">Fechar</button>
         </div>
     </div>
+
     <div id="donationNotification">
         <p>Você gostou de usar meu projeto? Poderia me ajudar fazendo uma doação?</p>
         <p><strong>Pix:</strong> matheusnunesdevzn@gmail.com</p>
         <button onclick="closeNotification()">Fechar</button>
     </div>
 
-  <script>
-const chatForm = document.getElementById('chatForm');
-const userMessageInput = document.getElementById('userMessage');
-const chatContainer = document.getElementById('chatContainer');
-const typingIndicator = document.getElementById('typingIndicator');
-
-function appendMessage(text, type) {
-    const div = document.createElement('div');
-    div.className = `message ${type}`;
-    div.innerHTML = text.replace(/\n/g,'<br>');
-    chatContainer.appendChild(div);
-    setTimeout(()=>div.classList.add('show'), 60);
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-}
-
-function showTyping() { typingIndicator.style.display = 'block'; }
-function hideTyping() { typingIndicator.style.display = 'none'; }
-
-chatForm.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    const message = userMessageInput.value.trim();
-    if(!message) return;
-    appendMessage(message, 'sent');
-    userMessageInput.value='';
-    showTyping();
-
-    try {
-        const res = await fetch('/api/chat', {
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({message})
-        });
-        const data = await res.json();
-        hideTyping();
-        if(data.reply) appendMessage(data.reply, 'received');
-        else appendMessage('Ocorreu um erro no bot.', 'received');
-    } catch(err) {
-        hideTyping();
-        appendMessage('Erro de conexão com o servidor.', 'received');
-    }
-});
-</script>
-  
 </body>
-</html>
+<script src="script (1).js"></script>
 
-<script src="script.js"></script>
+</html>
+<script>
+    const resposta = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: mensagemUsuario })
+});
+const dados = await resposta.json();
+appendMessage(dados.reply, 'received');
+</script>
+

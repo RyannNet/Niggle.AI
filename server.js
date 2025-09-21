@@ -1,41 +1,45 @@
+const chatForm = document.getElementById('chatForm');
+const userMessageInput = document.getElementById('userMessage');
+const chatContainer = document.getElementById('chatContainer');
+const typingIndicator = document.getElementById('typingIndicator');
 
-// server.js
-import express from "express";
-import pkg from "cohere-ai";
-const { CohereClient } = pkg;
+function appendMessage(text, type) {
+    const div = document.createElement('div');
+    div.className = `message ${type}`;
+    div.innerHTML = text.replace(/\n/g, '<br>');
+    chatContainer.appendChild(div);
+    setTimeout(() => div.classList.add('show'), 60);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
 
-const app = express();
-app.use(express.json());
+function showTyping() { typingIndicator.style.display = 'block'; }
+function hideTyping() { typingIndicator.style.display = 'none'; }
 
-const cohere = new CohereClient(process.env.COHERE_API_KEY);
+chatForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const mensagem = userMessageInput.value.trim();
+    if (!mensagem) return;
 
-app.get("/", (req, res) => {
-  res.send("API tá de pé 🚀 Niggle.AI");
-});
+    appendMessage(mensagem, 'sent');
+    userMessageInput.value = '';
+    showTyping();
 
-app.post("/api/chat", async (req, res) => {
-  const { message } = req.body;
-  try {
-    const response = await cohere.chat({
-      model: "command-a-03-2025",
-      messages: [
-        { role: "system", content: "Você é uma IA criada pra zoar com o usuário" },
-        { role: "user", content: message }
-      ],
-      temperature: 0.7
-    });
+    try {
+        const resposta = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: mensagem })
+        });
+        const dados = await resposta.json();
+        hideTyping();
 
-    // nova forma de pegar a resposta
-    const reply = response.output[0].content[0].text;
-    res.json({ reply });
-  } catch (err) {
-    console.error("ERRO COHERE:", err);
-    res.status(500).json({ error: "Erro ao conectar com a API Cohere" });
-  }
-});
-
-app.use(express.static("public"));
-
-app.listen(process.env.PORT || 3000, () => {
-  console.log("✅ Server rodando na Render");
+        if (dados.reply) {
+            appendMessage(dados.reply, 'received');
+        } else {
+            appendMessage("⚠️ Erro na resposta da IA", 'received');
+        }
+    } catch (err) {
+        hideTyping();
+        appendMessage("❌ Erro ao conectar com o servidor", 'received');
+    }
 });

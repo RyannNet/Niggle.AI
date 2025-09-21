@@ -1,3 +1,2 @@
 flask
 cohere
-python-dotenv
